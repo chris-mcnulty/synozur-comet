@@ -1,4 +1,4 @@
-import { spfi, SPFI } from '@pnp/sp';
+import { sp } from '@pnp/sp';
 import "@pnp/sp/webs";
 import "@pnp/sp/lists";
 import "@pnp/sp/fields";
@@ -11,11 +11,9 @@ export interface IProvisioningResult {
 }
 
 export class ListProvisioningService {
-  private _sp: SPFI;
   private _listTitle: string;
 
-  constructor(sp: SPFI, listTitle: string) {
-    this._sp = sp;
+  constructor(listTitle: string) {
     this._listTitle = listTitle;
   }
 
@@ -26,7 +24,7 @@ export class ListProvisioningService {
       let list: any;
       
       try {
-        list = this._sp.web.lists.getByTitle(this._listTitle);
+        list = sp.web.lists.getByTitle(this._listTitle);
         await list.select('Id')();
         listExists = true;
       } catch (err) {
@@ -36,18 +34,18 @@ export class ListProvisioningService {
 
       if (!listExists) {
         // Create the list
-        const listAddResult = await this._sp.web.lists.add(this._listTitle, "Holidays and Birthdays calendar", 100);
-        // Get the list ID from the result (PnPjs returns { Id: ... })
+        const listAddResult = await sp.web.lists.add(this._listTitle, "Holidays and Birthdays calendar", 100);
+        // Get the list ID from the result (PnPjs v2 returns { Id: ... })
         const listId = (listAddResult as any).Id || (listAddResult as any).data?.Id;
         if (listId) {
-          list = this._sp.web.lists.getById(listId);
+          list = sp.web.lists.getById(listId);
         } else {
           // Fallback to get by title
-          list = this._sp.web.lists.getByTitle(this._listTitle);
+          list = sp.web.lists.getByTitle(this._listTitle);
         }
         listExists = true;
       } else {
-        list = this._sp.web.lists.getByTitle(this._listTitle);
+        list = sp.web.lists.getByTitle(this._listTitle);
       }
 
       // Ensure all required fields exist

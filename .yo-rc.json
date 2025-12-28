@@ -1,6 +1,6 @@
 {
   "@microsoft/generator-sharepoint": {
-    "version": "1.19.0",
+    "version": "1.18.2",
     "libraryName": "holidays-birthdays-webpart",
     "libraryId": "30a6bd4c-0756-4062-9ba1-6c058d75fcbe",
     "environment": "spo",

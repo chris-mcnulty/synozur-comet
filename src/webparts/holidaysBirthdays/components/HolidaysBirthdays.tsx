@@ -16,7 +16,8 @@ import {
 import { IEventOccurrence } from '../services/RecurrenceCalculator';
 import { DataService } from '../services/DataService';
 import { ListProvisioningService } from '../services/ListProvisioningService';
-import { spfi, SPFI, SPFx } from '@pnp/sp';
+import { sp } from '@pnp/sp';
+import { SPFx } from '@pnp/common';
 import "@pnp/sp/webs";
 import "@pnp/sp/lists";
 import "@pnp/sp/items";
@@ -40,8 +41,10 @@ export const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps>
   const [error, setError] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  const getSp = useCallback((): SPFI => {
-    return spfi().using(SPFx(props.context));
+  const initializePnP = useCallback(() => {
+    sp.setup({
+      spfxContext: props.context
+    });
   }, [props.context]);
 
   const loadData = useCallback(async (maxDays: number) => {
@@ -49,11 +52,11 @@ export const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps>
       setLoading(true);
       setError(null);
 
-      const sp = getSp();
+      initializePnP();
       
       // Check if list exists and provision if needed
       if (props.allowListProvisioning) {
-        const provisioningService = new ListProvisioningService(sp, props.listTitle);
+        const provisioningService = new ListProvisioningService(props.listTitle);
         const provisioningResult = await provisioningService.ensureListExists();
         
         if (!provisioningResult.success) {
@@ -64,7 +67,7 @@ export const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps>
       }
 
       // Load events
-      const dataService = new DataService(sp, props.listTitle);
+      const dataService = new DataService(props.listTitle);
       const events = await dataService.getEvents(maxDays);
       
       setOccurrences(events);
@@ -80,7 +83,11 @@ export const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps>
       }
       setLoading(false);
     }
-  }, [props.context, props.listTitle, props.allowListProvisioning, getSp]);
+  }, [props.context, props.listTitle, props.allowListProvisioning, initializePnP]);
+
+  useEffect(() => {
+    initializePnP();
+  }, [initializePnP]);
 
   useEffect(() => {
     const maxDays = isExpanded ? props.daysExpanded : props.daysDefault;

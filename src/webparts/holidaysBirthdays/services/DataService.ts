@@ -1,4 +1,4 @@
-import { spfi, SPFI } from '@pnp/sp';
+import { sp } from '@pnp/sp';
 import "@pnp/sp/webs";
 import "@pnp/sp/lists";
 import "@pnp/sp/items";
@@ -17,17 +17,15 @@ export interface IListItem {
 }
 
 export class DataService {
-  private _sp: SPFI;
   private _listTitle: string;
 
-  constructor(sp: SPFI, listTitle: string) {
-    this._sp = sp;
+  constructor(listTitle: string) {
     this._listTitle = listTitle;
   }
 
   public async getEvents(maxDays: number = 365): Promise<IEventOccurrence[]> {
     try {
-      const list = this._sp.web.lists.getByTitle(this._listTitle);
+      const list = sp.web.lists.getByTitle(this._listTitle);
       
       // Get all items from the list
       const items: IListItem[] = await list.items.select(
