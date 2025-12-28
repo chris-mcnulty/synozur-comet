@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "1.0.0",
+  "bundles": {
+    "holidays-birthdays-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/holidaysBirthdays/HolidaysBirthdaysWebPart.js",
+          "manifest": "./src/webparts/holidaysBirthdays/HolidaysBirthdaysWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "HolidaysBirthdaysWebPartStrings": "lib/webparts/holidaysBirthdays/loc/{locale}.js"
+  }
+}
+

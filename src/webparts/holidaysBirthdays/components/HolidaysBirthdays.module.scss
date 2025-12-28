@@ -1,0 +1,78 @@
+@import '~office-ui-fabric-react/dist/sass/References.scss';
+
+.holidaysBirthdays {
+  overflow: hidden;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .title {
+    font-weight: 600;
+    color: $ms-color-neutralPrimary;
+  }
+
+  .emptyState {
+    padding: 40px 20px;
+    text-align: center;
+    color: $ms-color-neutralSecondary;
+  }
+
+  .monthHeader {
+    font-weight: 600;
+    color: $ms-color-themePrimary;
+    margin-top: 8px;
+    border-bottom: 2px solid $ms-color-themeLight;
+    padding-bottom: 8px;
+  }
+
+  .eventItem {
+    padding: 12px;
+    background-color: $ms-color-neutralLighter;
+    border-left: 4px solid $ms-color-themePrimary;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: $ms-color-neutralLight;
+    }
+  }
+
+  .eventImage {
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .eventDate {
+    font-weight: 600;
+    color: $ms-color-neutralPrimary;
+    min-width: 100px;
+  }
+
+  .eventTitle {
+    font-weight: 500;
+    color: $ms-color-neutralPrimary;
+    flex-grow: 1;
+  }
+
+  .eventNotes {
+    color: $ms-color-neutralSecondary;
+    font-style: italic;
+  }
+
+  .typeBadge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .errorHint {
+    margin-top: 12px;
+    color: $ms-color-neutralSecondary;
+    font-style: italic;
+  }
+}
+
