@@ -10,9 +10,9 @@ import {
   Text,
   Image,
   ImageFit,
-  PrimaryButton,
-  getTheme
+  PrimaryButton
 } from 'office-ui-fabric-react';
+import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { IEventOccurrence } from '../services/RecurrenceCalculator';
 import { DataService } from '../services/DataService';
 import { ListProvisioningService } from '../services/ListProvisioningService';
@@ -32,6 +32,7 @@ export interface IHolidaysBirthdaysProps {
   showImages: boolean;
   showTypeBadges: boolean;
   allowListProvisioning: boolean;
+  themeVariant: IReadonlyTheme | undefined;
 }
 
 const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (props) => {
@@ -112,17 +113,32 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
   };
 
   const getTypeBadgeColor = (eventType: string): string => {
-    const theme = getTheme();
-    return eventType === 'Birthday' ? theme.palette.themePrimary : theme.palette.themeSecondary;
+    // Use the theme variant from SharePoint context for proper theme inheritance
+    const palette = props.themeVariant?.palette;
+    
+    if (palette) {
+      return eventType === 'Birthday' 
+        ? (palette as any).themePrimary || '#0078d4'
+        : (palette as any).themeSecondary || '#2b88d8';
+    }
+    
+    // Fallback to default colors if theme is not available
+    return eventType === 'Birthday' ? '#0078d4' : '#2b88d8';
   };
 
   const getListUrl = (): string => {
     return `${props.context.pageContext.web.absoluteUrl}/Lists/${props.listTitle}`;
   };
 
+  // Apply theme semantic colors as inline styles for proper inheritance
+  const containerStyle: React.CSSProperties = {
+    backgroundColor: props.themeVariant?.semanticColors?.bodyBackground,
+    color: props.themeVariant?.semanticColors?.bodyText
+  };
+
   if (loading && occurrences.length === 0) {
     return (
-      <div className={styles.holidaysBirthdays}>
+      <div className={styles.holidaysBirthdays} style={containerStyle}>
         <Spinner size={SpinnerSize.large} label="Loading events..." />
       </div>
     );
@@ -130,7 +146,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
 
   if (error) {
     return (
-      <div className={styles.holidaysBirthdays}>
+      <div className={styles.holidaysBirthdays} style={containerStyle}>
         <MessageBar messageBarType={MessageBarType.error} isMultiline>
           {error}
         </MessageBar>
@@ -151,7 +167,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
   });
 
   return (
-    <div className={styles.holidaysBirthdays}>
+    <div className={styles.holidaysBirthdays} style={containerStyle}>
       <Stack tokens={{ childrenGap: 16 }}>
         <Stack horizontal horizontalAlign="space-between" verticalAlign="center">
           <Text variant="xLarge" className={styles.title}>

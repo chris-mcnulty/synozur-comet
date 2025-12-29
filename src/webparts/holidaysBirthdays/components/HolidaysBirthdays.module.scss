@@ -1,38 +1,42 @@
-@import '~office-ui-fabric-react/dist/sass/References.scss';
+// Use SharePoint theme CSS variables for automatic theme inheritance
+// These CSS custom properties are injected by SharePoint based on the current site/section theme
 
 .holidaysBirthdays {
   overflow: hidden;
   padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  // Inherit font from the page - SharePoint will set this based on the site theme
+  font-family: inherit;
+  // Inherit text color from the page theme
+  color: "[theme:bodyText, default:#323130]";
 
   .title {
     font-weight: 600;
-    color: $ms-color-neutralPrimary;
+    color: "[theme:bodyText, default:#323130]";
   }
 
   .emptyState {
     padding: 40px 20px;
     text-align: center;
-    color: $ms-color-neutralSecondary;
+    color: "[theme:bodySubtext, default:#605e5c]";
   }
 
   .monthHeader {
     font-weight: 600;
-    color: $ms-color-themePrimary;
+    color: "[theme:themePrimary, default:#0078d4]";
     margin-top: 8px;
-    border-bottom: 2px solid $ms-color-themeLight;
+    border-bottom: 2px solid "[theme:themeLight, default:#c7e0f4]";
     padding-bottom: 8px;
   }
 
   .eventItem {
     padding: 12px;
-    background-color: $ms-color-neutralLighter;
-    border-left: 4px solid $ms-color-themePrimary;
+    background-color: "[theme:neutralLighter, default:#f3f2f1]";
+    border-left: 4px solid "[theme:themePrimary, default:#0078d4]";
     border-radius: 4px;
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: $ms-color-neutralLight;
+      background-color: "[theme:neutralLight, default:#edebe9]";
     }
   }
 
@@ -43,18 +47,18 @@
 
   .eventDate {
     font-weight: 600;
-    color: $ms-color-neutralPrimary;
+    color: "[theme:bodyText, default:#323130]";
     min-width: 100px;
   }
 
   .eventTitle {
     font-weight: 500;
-    color: $ms-color-neutralPrimary;
+    color: "[theme:bodyText, default:#323130]";
     flex-grow: 1;
   }
 
   .eventNotes {
-    color: $ms-color-neutralSecondary;
+    color: "[theme:bodySubtext, default:#605e5c]";
     font-style: italic;
   }
 
@@ -64,14 +68,14 @@
     border-radius: 12px;
     font-size: 11px;
     font-weight: 600;
-    color: white;
+    color: "[theme:white, default:#ffffff]";
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
   .errorHint {
     margin-top: 12px;
-    color: $ms-color-neutralSecondary;
+    color: "[theme:bodySubtext, default:#605e5c]";
     font-style: italic;
   }
 }

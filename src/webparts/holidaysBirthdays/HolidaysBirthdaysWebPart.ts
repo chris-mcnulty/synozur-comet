@@ -8,12 +8,33 @@ import {
   PropertyPaneToggle
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
+import { ThemeChangedEventArgs, ThemeProvider, IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import * as strings from 'HolidaysBirthdaysWebPartStrings';
 import HolidaysBirthdays from './components/HolidaysBirthdays';
 import { IHolidaysBirthdaysWebPartProps } from './IHolidaysBirthdaysWebPartProps';
 
 export default class HolidaysBirthdaysWebPart extends BaseClientSideWebPart<IHolidaysBirthdaysWebPartProps> {
+  private _themeProvider: ThemeProvider;
+  private _themeVariant: IReadonlyTheme | undefined;
+
+  protected async onInit(): Promise<void> {
+    // Consume the ThemeProvider service to get the current theme
+    this._themeProvider = this.context.serviceScope.consume(ThemeProvider.serviceKey);
+
+    // Get the current theme variant
+    this._themeVariant = this._themeProvider.tryGetTheme();
+
+    // Register for theme changes
+    this._themeProvider.themeChangedEvent.add(this, this._handleThemeChangedEvent);
+
+    return super.onInit();
+  }
+
+  private _handleThemeChangedEvent(args: ThemeChangedEventArgs): void {
+    this._themeVariant = args.theme;
+    this.render();
+  }
 
   public render(): void {
     const element: React.ReactElement = React.createElement(
@@ -25,7 +46,8 @@ export default class HolidaysBirthdaysWebPart extends BaseClientSideWebPart<IHol
         listTitle: this.properties.listTitle ?? 'HolidaysAndBirthdays',
         showImages: this.properties.showImages !== false,
         showTypeBadges: this.properties.showTypeBadges !== false,
-        allowListProvisioning: this.properties.allowListProvisioning !== false
+        allowListProvisioning: this.properties.allowListProvisioning !== false,
+        themeVariant: this._themeVariant
       }
     );
 
