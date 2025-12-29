@@ -11,7 +11,8 @@ define([], function() {
     "DisplayModeFieldLabel": "Display Mode",
     "DisplayModeBoth": "Holidays & Birthdays",
     "DisplayModeHolidays": "Holidays Only",
-    "DisplayModeBirthdays": "Birthdays Only"
+    "DisplayModeBirthdays": "Birthdays Only",
+    "ShowFooterFieldLabel": "Show Footer"
   };
 });
 

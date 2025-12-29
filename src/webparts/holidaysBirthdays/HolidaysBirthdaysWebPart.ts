@@ -27,7 +27,8 @@ export default class HolidaysBirthdaysWebPart extends BaseClientSideWebPart<IHol
         showImages: this.properties.showImages !== false,
         showTypeBadges: this.properties.showTypeBadges !== false,
         allowListProvisioning: this.properties.allowListProvisioning !== false,
-        displayMode: this.properties.displayMode ?? 'Both'
+        displayMode: this.properties.displayMode ?? 'Both',
+        showFooter: this.properties.showFooter !== false
       }
     );
 
@@ -91,6 +92,10 @@ export default class HolidaysBirthdaysWebPart extends BaseClientSideWebPart<IHol
                     { key: 'Birthdays', text: strings.DisplayModeBirthdays }
                   ],
                   selectedKey: this.properties.displayMode ?? 'Both'
+                }),
+                PropertyPaneToggle('showFooter', {
+                  label: strings.ShowFooterFieldLabel,
+                  checked: this.properties.showFooter !== false
                 })
               ]
             }

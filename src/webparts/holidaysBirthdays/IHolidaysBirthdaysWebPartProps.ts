@@ -8,5 +8,6 @@ export interface IHolidaysBirthdaysWebPartProps {
   showTypeBadges: boolean;
   allowListProvisioning: boolean;
   displayMode: DisplayMode;
+  showFooter: boolean;
 }
 

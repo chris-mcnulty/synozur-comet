@@ -87,5 +87,25 @@
     color: $ms-color-neutralSecondary;
     font-style: italic;
   }
+
+  .footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid $ms-color-neutralLight;
+    // Use theme token for text color
+    color: $ms-color-neutralSecondary;
+  }
+
+  .footerLogo {
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  .footerText {
+    // Use theme token for secondary text color
+    color: $ms-color-neutralSecondary;
+    font-size: 11px;
+    line-height: 1.4;
+  }
 }
 

@@ -30,6 +30,7 @@ const defaultHolidayImage = require('../assets/default-holiday.jpg');
 const defaultBirthdayImage = require('../assets/default-birthday.jpg');
 const defaultChristmasImage = require('../assets/default-christmas.jpg');
 const defaultIndependenceImage = require('../assets/default-independence.jpg');
+const synozurLogo = require('../assets/synozur-logo.png');
 
 export interface IHolidaysBirthdaysProps {
   context: WebPartContext;
@@ -40,6 +41,7 @@ export interface IHolidaysBirthdaysProps {
   showTypeBadges: boolean;
   allowListProvisioning: boolean;
   displayMode: DisplayMode;
+  showFooter: boolean;
 }
 
 const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (props) => {
@@ -301,6 +303,23 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
               </Stack>
             ))}
           </Stack>
+        )}
+        {props.showFooter && (
+          <div className={styles.footer}>
+            <Stack horizontal tokens={{ childrenGap: 8 }} verticalAlign="center" horizontalAlign="center">
+              <Image
+                src={synozurLogo}
+                alt="Synozur"
+                width={128}
+                height={128}
+                imageFit={ImageFit.contain}
+                className={styles.footerLogo}
+              />
+              <Text variant="small" className={styles.footerText}>
+                Holidays & Birthdays • © {new Date().getFullYear()} The Synozur Alliance LLC. All Rights Reserved.
+              </Text>
+            </Stack>
+          </div>
         )}
       </Stack>
     </div>
