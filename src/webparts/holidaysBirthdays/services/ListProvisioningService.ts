@@ -140,6 +140,13 @@ export class ListProvisioningService {
         type: 'Note',
         required: false,
         richText: false
+      },
+      {
+        internalName: 'Active',
+        displayName: 'Active',
+        type: 'Boolean',
+        required: false,
+        defaultValue: true
       }
     ];
 
