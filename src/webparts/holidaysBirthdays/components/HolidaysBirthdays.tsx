@@ -46,6 +46,9 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
   const [error, setError] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
+  // Fluent UI components automatically inherit theme from SharePoint page context
+  // getTheme() returns the current SharePoint theme, which is used by all Fluent UI components
+
   const initializePnP = useCallback(() => {
     sp.setup({
       spfxContext: props.context as any

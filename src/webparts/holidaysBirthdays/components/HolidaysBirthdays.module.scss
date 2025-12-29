@@ -3,35 +3,43 @@
 .holidaysBirthdays {
   overflow: hidden;
   padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  // Inherit font from SharePoint page theme - remove hardcoded font-family
+  // font-family will inherit from the page's theme
 
   .title {
     font-weight: 600;
+    // Use theme token for primary text color
     color: $ms-color-neutralPrimary;
   }
 
   .emptyState {
     padding: 40px 20px;
     text-align: center;
+    // Use theme token for secondary text color
     color: $ms-color-neutralSecondary;
   }
 
   .monthHeader {
     font-weight: 600;
+    // Use theme primary color - adapts to SharePoint theme
     color: $ms-color-themePrimary;
     margin-top: 8px;
+    // Use theme light color for border
     border-bottom: 2px solid $ms-color-themeLight;
     padding-bottom: 8px;
   }
 
   .eventItem {
     padding: 12px;
+    // Use theme token for background - adapts to section background
     background-color: $ms-color-neutralLighter;
+    // Use theme primary color for accent border
     border-left: 4px solid $ms-color-themePrimary;
     border-radius: 4px;
     transition: background-color 0.2s ease;
 
     &:hover {
+      // Use theme token for hover state
       background-color: $ms-color-neutralLight;
     }
   }
@@ -43,17 +51,20 @@
 
   .eventDate {
     font-weight: 600;
+    // Use theme token for text color
     color: $ms-color-neutralPrimary;
     min-width: 100px;
   }
 
   .eventTitle {
     font-weight: 500;
+    // Use theme token for text color
     color: $ms-color-neutralPrimary;
     flex-grow: 1;
   }
 
   .eventNotes {
+    // Use theme token for secondary text color
     color: $ms-color-neutralSecondary;
     font-style: italic;
   }
@@ -64,6 +75,7 @@
     border-radius: 12px;
     font-size: 11px;
     font-weight: 600;
+    // Badge text color - will be set dynamically via inline style using theme
     color: white;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -71,6 +83,7 @@
 
   .errorHint {
     margin-top: 12px;
+    // Use theme token for secondary text color
     color: $ms-color-neutralSecondary;
     font-style: italic;
   }
