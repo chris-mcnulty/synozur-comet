@@ -23,6 +23,7 @@ import "@pnp/sp/items";
 import "@pnp/sp/fields";
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 import styles from './HolidaysBirthdays.module.scss';
+import { DisplayMode } from '../IHolidaysBirthdaysWebPartProps';
 
 export interface IHolidaysBirthdaysProps {
   context: WebPartContext;
@@ -32,6 +33,7 @@ export interface IHolidaysBirthdaysProps {
   showImages: boolean;
   showTypeBadges: boolean;
   allowListProvisioning: boolean;
+  displayMode: DisplayMode;
 }
 
 const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (props) => {
@@ -45,6 +47,19 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
       spfxContext: props.context as any
     });
   }, [props.context]);
+
+  const filterEventsByDisplayMode = useCallback((events: IEventOccurrence[]): IEventOccurrence[] => {
+    if (props.displayMode === 'Both') {
+      return events;
+    }
+    if (props.displayMode === 'Holidays') {
+      return events.filter(e => e.eventType === 'Holiday');
+    }
+    if (props.displayMode === 'Birthdays') {
+      return events.filter(e => e.eventType === 'Birthday');
+    }
+    return events;
+  }, [props.displayMode]);
 
   const loadData = useCallback(async (maxDays: number) => {
     try {
@@ -69,7 +84,10 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
       const dataService = new DataService(props.listTitle);
       const events = await dataService.getEvents(maxDays);
       
-      setOccurrences(events);
+      // Filter events based on display mode
+      const filteredEvents = filterEventsByDisplayMode(events);
+      
+      setOccurrences(filteredEvents);
       setLoading(false);
     } catch (err) {
       console.error('Error loading data:', err);
@@ -82,7 +100,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
       }
       setLoading(false);
     }
-  }, [props.context, props.listTitle, props.allowListProvisioning, initializePnP]);
+  }, [props.context, props.listTitle, props.allowListProvisioning, initializePnP, filterEventsByDisplayMode]);
 
   useEffect(() => {
     initializePnP();
@@ -91,7 +109,18 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
   useEffect(() => {
     const maxDays = isExpanded ? props.daysExpanded : props.daysDefault;
     loadData(maxDays);
-  }, [isExpanded, props.daysDefault, props.daysExpanded, loadData]);
+  }, [isExpanded, props.daysDefault, props.daysExpanded, props.displayMode, loadData]);
+
+  const getTitle = (): string => {
+    switch (props.displayMode) {
+      case 'Holidays':
+        return 'Upcoming Holidays';
+      case 'Birthdays':
+        return 'Upcoming Birthdays';
+      default:
+        return 'Upcoming Events';
+    }
+  };
 
   const formatDate = (date: Date): string => {
     return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
@@ -155,7 +184,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
       <Stack tokens={{ childrenGap: 16 }}>
         <Stack horizontal horizontalAlign="space-between" verticalAlign="center">
           <Text variant="xLarge" className={styles.title}>
-            Upcoming Events {!isExpanded && `(Next ${props.daysDefault} days)`}
+            {getTitle()} {!isExpanded && `(Next ${props.daysDefault} days)`}
           </Text>
           <IconButton
             iconProps={{ iconName: isExpanded ? 'ChevronUp' : 'ChevronDown' }}
