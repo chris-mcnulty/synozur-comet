@@ -17,7 +17,6 @@ import { IEventOccurrence } from '../services/RecurrenceCalculator';
 import { DataService } from '../services/DataService';
 import { ListProvisioningService } from '../services/ListProvisioningService';
 import { sp } from '@pnp/sp';
-import { SPFx } from '@pnp/common';
 import "@pnp/sp/webs";
 import "@pnp/sp/lists";
 import "@pnp/sp/items";
@@ -35,7 +34,7 @@ export interface IHolidaysBirthdaysProps {
   allowListProvisioning: boolean;
 }
 
-export const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (props) => {
+const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (props) => {
   const [occurrences, setOccurrences] = useState<IEventOccurrence[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,7 +42,7 @@ export const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps>
 
   const initializePnP = useCallback(() => {
     sp.setup({
-      spfxContext: props.context
+      spfxContext: props.context as any
     });
   }, [props.context]);
 
@@ -231,3 +230,4 @@ export const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps>
   );
 };
 
+export default HolidaysBirthdays;

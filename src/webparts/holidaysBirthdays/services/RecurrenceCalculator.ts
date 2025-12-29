@@ -24,7 +24,7 @@ export class RecurrenceCalculator {
     const occurrences: IEventOccurrence[] = [];
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const endDate = new Date(today);
+    const endDate = new Date(today.getTime());
     endDate.setDate(endDate.getDate() + maxDays);
 
     if (recurrenceRule) {
@@ -54,7 +54,7 @@ export class RecurrenceCalculator {
       occurrences.push(...annualOccurrences);
     } else {
       // Single occurrence (non-recurring event)
-      const eventDateOnly = new Date(eventDate);
+      const eventDateOnly = new Date(eventDate.getTime());
       eventDateOnly.setHours(0, 0, 0, 0);
       
       if (eventDateOnly >= today && eventDateOnly <= endDate) {
@@ -64,7 +64,7 @@ export class RecurrenceCalculator {
           eventType,
           imageUrl,
           notes,
-          originalEventDate: new Date(eventDate)
+          originalEventDate: new Date(eventDate.getTime())
         });
       }
     }
@@ -99,12 +99,12 @@ export class RecurrenceCalculator {
 
     while (checkDate <= endDate) {
       occurrences.push({
-        date: new Date(checkDate),
+        date: new Date(checkDate.getTime()),
         title,
         eventType,
         imageUrl,
         notes,
-        originalEventDate: new Date(originalDate)
+        originalEventDate: new Date(originalDate.getTime())
       });
       
       checkDate = new Date(checkDate.getFullYear() + 1, originalMonth, originalDay);
@@ -159,12 +159,12 @@ export class RecurrenceCalculator {
           
           if (occurrence >= startDate && occurrence <= endDate) {
             occurrences.push({
-              date: new Date(occurrence),
+              date: new Date(occurrence.getTime()),
               title,
               eventType,
               imageUrl,
               notes,
-              originalEventDate: new Date(originalDate)
+              originalEventDate: new Date(originalDate.getTime())
             });
           }
           
