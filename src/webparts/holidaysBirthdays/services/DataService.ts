@@ -14,6 +14,7 @@ export interface IListItem {
   RecurrenceRule?: string;
   ImageUrl?: { Url: string; Description: string };
   Notes?: string;
+  Active?: boolean;
 }
 
 export class DataService {
@@ -36,12 +37,16 @@ export class DataService {
         'IsAnnualRecurrence',
         'RecurrenceRule',
         'ImageUrl',
-        'Notes'
+        'Notes',
+        'Active'
       )();
 
       const allOccurrences: IEventOccurrence[] = [];
 
-      for (const item of items) {
+      // Filter to only include active entries (default to true if Active field is not set)
+      const activeItems = items.filter(item => item.Active !== false);
+
+      for (const item of activeItems) {
         const eventDate = new Date(item.EventDate);
         const isAnnualRecurrence = item.IsAnnualRecurrence !== false; // Default to true
         
