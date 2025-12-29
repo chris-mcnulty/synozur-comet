@@ -19,7 +19,9 @@
       "listTitle": "HolidaysAndBirthdays",
       "showImages": true,
       "showTypeBadges": true,
-      "allowListProvisioning": true
+      "allowListProvisioning": true,
+      "displayMode": "Both",
+      "showFooter": true
     }
   }]
 }
