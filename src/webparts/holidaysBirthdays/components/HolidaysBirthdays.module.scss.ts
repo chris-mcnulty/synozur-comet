@@ -11,7 +11,11 @@ const styles = {
   eventTitle: 'eventTitle_ec58eb7a',
   eventNotes: 'eventNotes_ec58eb7a',
   typeBadge: 'typeBadge_ec58eb7a',
-  errorHint: 'errorHint_ec58eb7a'
+  errorHint: 'errorHint_ec58eb7a',
+  footer: 'footer_ec58eb7a',
+  footerLogo: 'footerLogo_ec58eb7a',
+  footerTitle: 'footerTitle_ec58eb7a',
+  footerCopyright: 'footerCopyright_ec58eb7a'
 };
 
 export default styles;

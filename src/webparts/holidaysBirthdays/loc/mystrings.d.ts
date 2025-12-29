@@ -7,6 +7,7 @@ declare interface IHolidaysBirthdaysWebPartStrings {
   ShowImagesFieldLabel: string;
   ShowTypeBadgesFieldLabel: string;
   AllowListProvisioningFieldLabel: string;
+  ShowFooterFieldLabel: string;
 }
 
 declare module 'HolidaysBirthdaysWebPartStrings' {

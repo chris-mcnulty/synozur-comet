@@ -7,7 +7,8 @@ define([], function() {
     "ListTitleFieldLabel": "List Title",
     "ShowImagesFieldLabel": "Show Images",
     "ShowTypeBadgesFieldLabel": "Show Type Badges",
-    "AllowListProvisioningFieldLabel": "Allow List Provisioning"
+    "AllowListProvisioningFieldLabel": "Allow List Provisioning",
+    "ShowFooterFieldLabel": "Show SYNOZUR Footer"
   };
 });
 

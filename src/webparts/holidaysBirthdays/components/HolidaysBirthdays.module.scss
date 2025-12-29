@@ -74,5 +74,33 @@
     color: $ms-color-neutralSecondary;
     font-style: italic;
   }
+
+  .footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid $ms-color-neutralLight;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footerLogo {
+    height: 32px;
+    width: auto;
+  }
+
+  .footerTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: $ms-color-themePrimary;
+    margin: 0;
+  }
+
+  .footerCopyright {
+    font-size: 11px;
+    color: $ms-color-neutralSecondary;
+    margin: 0;
+  }
 }
 

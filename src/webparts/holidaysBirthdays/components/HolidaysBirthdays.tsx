@@ -24,6 +24,9 @@ import "@pnp/sp/fields";
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 import styles from './HolidaysBirthdays.module.scss';
 
+/* eslint-disable @typescript-eslint/no-var-requires */
+const synozurLogo: string = require('../assets/synozur-logo.svg');
+
 export interface IHolidaysBirthdaysProps {
   context: WebPartContext;
   daysDefault: number;
@@ -32,6 +35,7 @@ export interface IHolidaysBirthdaysProps {
   showImages: boolean;
   showTypeBadges: boolean;
   allowListProvisioning: boolean;
+  showFooter: boolean;
 }
 
 const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (props) => {
@@ -224,6 +228,14 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
               </Stack>
             ))}
           </Stack>
+        )}
+
+        {props.showFooter && (
+          <div className={styles.footer}>
+            <img src={synozurLogo} alt="SYNOZUR Logo" className={styles.footerLogo} />
+            <p className={styles.footerTitle}>SYNOZUR Holidays</p>
+            <p className={styles.footerCopyright}>© {new Date().getFullYear()} The SYNOZUR Alliance, LLC</p>
+          </div>
         )}
       </Stack>
     </div>

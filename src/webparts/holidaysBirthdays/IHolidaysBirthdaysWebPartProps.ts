@@ -5,5 +5,6 @@ export interface IHolidaysBirthdaysWebPartProps {
   showImages: boolean;
   showTypeBadges: boolean;
   allowListProvisioning: boolean;
+  showFooter: boolean;
 }
 
