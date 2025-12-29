@@ -5,7 +5,8 @@ import {
   IPropertyPaneConfiguration,
   PropertyPaneTextField,
   PropertyPaneSlider,
-  PropertyPaneToggle
+  PropertyPaneToggle,
+  PropertyPaneDropdown
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 
@@ -25,7 +26,8 @@ export default class HolidaysBirthdaysWebPart extends BaseClientSideWebPart<IHol
         listTitle: this.properties.listTitle ?? 'HolidaysAndBirthdays',
         showImages: this.properties.showImages !== false,
         showTypeBadges: this.properties.showTypeBadges !== false,
-        allowListProvisioning: this.properties.allowListProvisioning !== false
+        allowListProvisioning: this.properties.allowListProvisioning !== false,
+        displayMode: this.properties.displayMode ?? 'Both'
       }
     );
 
@@ -80,6 +82,15 @@ export default class HolidaysBirthdaysWebPart extends BaseClientSideWebPart<IHol
                 PropertyPaneToggle('allowListProvisioning', {
                   label: strings.AllowListProvisioningFieldLabel,
                   checked: this.properties.allowListProvisioning !== false
+                }),
+                PropertyPaneDropdown('displayMode', {
+                  label: strings.DisplayModeFieldLabel,
+                  options: [
+                    { key: 'Both', text: strings.DisplayModeBoth },
+                    { key: 'Holidays', text: strings.DisplayModeHolidays },
+                    { key: 'Birthdays', text: strings.DisplayModeBirthdays }
+                  ],
+                  selectedKey: this.properties.displayMode ?? 'Both'
                 })
               ]
             }
