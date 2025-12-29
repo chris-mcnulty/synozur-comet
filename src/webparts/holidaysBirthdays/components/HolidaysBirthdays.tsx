@@ -24,6 +24,12 @@ import "@pnp/sp/fields";
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 import styles from './HolidaysBirthdays.module.scss';
 
+// Import default images
+const defaultHolidayImage = require('../assets/default-holiday.jpg');
+const defaultBirthdayImage = require('../assets/default-birthday.jpg');
+const defaultChristmasImage = require('../assets/default-christmas.jpg');
+const defaultIndependenceImage = require('../assets/default-independence.jpg');
+
 export interface IHolidaysBirthdaysProps {
   context: WebPartContext;
   daysDefault: number;
@@ -124,6 +130,37 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
     return eventType === 'Birthday' ? theme.palette.themePrimary : theme.palette.themeSecondary;
   };
 
+  const getDefaultImage = (event: IEventOccurrence): string => {
+    // Check for specific holidays first
+    if (event.eventType === 'Holiday') {
+      const month = event.date.getMonth(); // 0-indexed (0 = January, 11 = December)
+      const day = event.date.getDate();
+      
+      // Check for Christmas (December 25)
+      if (month === 11 && day === 25) {
+        return defaultChristmasImage;
+      }
+      
+      // Check for Independence Day (July 4)
+      if (month === 6 && day === 4) {
+        return defaultIndependenceImage;
+      }
+      
+      // Fallback to generic holiday image
+      return defaultHolidayImage;
+    } else if (event.eventType === 'Birthday') {
+      return defaultBirthdayImage;
+    }
+    
+    // Fallback to holiday image if event type is unknown
+    return defaultHolidayImage;
+  };
+
+  const getImageUrl = (event: IEventOccurrence): string | undefined => {
+    // Use custom image if provided, otherwise use default based on event type and date
+    return event.imageUrl || getDefaultImage(event);
+  };
+
   const getListUrl = (): string => {
     return `${props.context.pageContext.web.absoluteUrl}/Lists/${props.listTitle}`;
   };
@@ -192,9 +229,9 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
                   {groupedEvents[monthKey].map((event, index) => (
                     <div key={`${event.date.getTime()}-${index}`} className={styles.eventItem}>
                       <Stack horizontal tokens={{ childrenGap: 12 }} verticalAlign="center">
-                        {props.showImages && event.imageUrl && (
+                        {props.showImages && (
                           <Image
-                            src={event.imageUrl}
+                            src={getImageUrl(event)}
                             alt={event.title}
                             width={48}
                             height={48}
