@@ -102,14 +102,14 @@ export class ListProvisioningService {
     const fieldsToCreate = [
       {
         internalName: 'EventDate',
-        displayName: 'Event Date',
+        displayName: 'EventDate',
         type: 'DateTime',
         required: true,
         format: 'DateOnly'
       },
       {
         internalName: 'EventType',
-        displayName: 'Event Type',
+        displayName: 'EventType',
         type: 'Choice',
         choices: ['Birthday', 'Holiday'],
         required: true,
@@ -117,20 +117,20 @@ export class ListProvisioningService {
       },
       {
         internalName: 'IsAnnualRecurrence',
-        displayName: 'Is Annual Recurrence',
+        displayName: 'IsAnnualRecurrence',
         type: 'Boolean',
         required: false,
         defaultValue: true
       },
       {
         internalName: 'RecurrenceRule',
-        displayName: 'Recurrence Rule',
+        displayName: 'RecurrenceRule',
         type: 'Text',
         required: false
       },
       {
         internalName: 'ImageUrl',
-        displayName: 'Image URL',
+        displayName: 'ImageUrl',
         type: 'URL',
         required: false
       },
