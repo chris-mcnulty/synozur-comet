@@ -27,7 +27,9 @@
         "listTitle": "HolidaysAndBirthdays",
         "showImages": true,
         "showTypeBadges": true,
-        "allowListProvisioning": true
+        "allowListProvisioning": true,
+        "displayMode": "Both",
+        "showFooter": true
       }
     }
   ],
@@ -39,7 +41,7 @@
     "scriptResources": {
       "holidays-birthdays-web-part": {
         "type": "path",
-        "path": "holidays-birthdays-web-part_c7418146813215202277.js"
+        "path": "holidays-birthdays-web-part_fa7b1491227b4c8eaaaf.js"
       },
       "@microsoft/sp-property-pane": {
         "type": "component",
@@ -48,7 +50,7 @@
       },
       "HolidaysBirthdaysWebPartStrings": {
         "type": "path",
-        "path": "HolidaysBirthdaysWebPartStrings_en-us_a639ea9005a792503082ff4a5089373a.js"
+        "path": "HolidaysBirthdaysWebPartStrings_en-us_3dc9a8c276c1d28e0e11bc3c3a49bb65.js"
       },
       "@microsoft/sp-core-library": {
         "type": "component",

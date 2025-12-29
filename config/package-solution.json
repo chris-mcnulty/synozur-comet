@@ -21,9 +21,7 @@
       "longDescription": {
         "default": "Synozur Holidays and Birthdays is a SharePoint Framework web part that displays upcoming holidays and birthdays from a SharePoint list. The web part features automatic list provisioning, support for annual recurrence (birthdays and fixed-date holidays), complex recurrence rules for moving holidays (e.g., Labor Day), and flexible display options with expandable views (30-day default, 365-day expanded). Events are grouped by month and can include images and type badges for enhanced visibility. For support, contact us at contactus@synozur.com."
       },
-      "screenshotPaths": [
-        "assets/synozur-logo.png"
-      ],
+      "screenshotPaths": [],
       "videoUrl": "",
       "categories": []
     }

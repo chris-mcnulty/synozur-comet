@@ -11,6 +11,7 @@ declare interface IHolidaysBirthdaysWebPartStrings {
   DisplayModeBoth: string;
   DisplayModeHolidays: string;
   DisplayModeBirthdays: string;
+  ShowFooterFieldLabel: string;
 }
 
 declare module 'HolidaysBirthdaysWebPartStrings' {

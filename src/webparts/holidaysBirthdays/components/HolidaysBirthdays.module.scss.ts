@@ -1,17 +1,20 @@
 /* tslint:disable */
 require("./HolidaysBirthdays.module.css");
 const styles = {
-  holidaysBirthdays: 'holidaysBirthdays_ec58eb7a',
-  title: 'title_ec58eb7a',
-  emptyState: 'emptyState_ec58eb7a',
-  monthHeader: 'monthHeader_ec58eb7a',
-  eventItem: 'eventItem_ec58eb7a',
-  eventImage: 'eventImage_ec58eb7a',
-  eventDate: 'eventDate_ec58eb7a',
-  eventTitle: 'eventTitle_ec58eb7a',
-  eventNotes: 'eventNotes_ec58eb7a',
-  typeBadge: 'typeBadge_ec58eb7a',
-  errorHint: 'errorHint_ec58eb7a'
+  holidaysBirthdays: 'holidaysBirthdays_b30a3529',
+  title: 'title_b30a3529',
+  emptyState: 'emptyState_b30a3529',
+  monthHeader: 'monthHeader_b30a3529',
+  eventItem: 'eventItem_b30a3529',
+  eventImage: 'eventImage_b30a3529',
+  eventDate: 'eventDate_b30a3529',
+  eventTitle: 'eventTitle_b30a3529',
+  eventNotes: 'eventNotes_b30a3529',
+  typeBadge: 'typeBadge_b30a3529',
+  errorHint: 'errorHint_b30a3529',
+  footer: 'footer_b30a3529',
+  footerLogo: 'footerLogo_b30a3529',
+  footerText: 'footerText_b30a3529'
 };
 
 export default styles;
