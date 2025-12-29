@@ -1,18 +1,31 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "holidays-birthdays-webpart-client-side-solution",
+    "name": "Synozur Holidays and Birthdays",
     "id": "30a6bd4c-0756-4062-9ba1-6c058d75fcbe",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
     "developer": {
-      "name": "Your Company",
-      "websiteUrl": "",
-      "privacyUrl": "",
-      "termsOfUseUrl": "",
+      "name": "The Synozur Alliance LLC",
+      "websiteUrl": "https://www.synozur.com",
+      "privacyUrl": "https://www.synozur.com/privacy",
+      "termsOfUseUrl": "https://www.synozur.com/terms",
       "mpnId": ""
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Display upcoming holidays and birthdays from a SharePoint list with support for annual recurrence and moving holidays"
+      },
+      "longDescription": {
+        "default": "Synozur Holidays and Birthdays is a SharePoint Framework web part that displays upcoming holidays and birthdays from a SharePoint list. The web part features automatic list provisioning, support for annual recurrence (birthdays and fixed-date holidays), complex recurrence rules for moving holidays (e.g., Labor Day), and flexible display options with expandable views (30-day default, 365-day expanded). Events are grouped by month and can include images and type badges for enhanced visibility. For support, contact us at contactus@synozur.com."
+      },
+      "screenshotPaths": [
+        "assets/synozur-logo.png"
+      ],
+      "videoUrl": "",
+      "categories": []
     }
   },
   "paths": {
