@@ -51,6 +51,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
       setLoading(true);
       setError(null);
 
+      // Initialize PnP before any operations
       initializePnP();
       
       // Check if list exists and provision if needed
@@ -59,7 +60,8 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
         const provisioningResult = await provisioningService.ensureListExists();
         
         if (!provisioningResult.success) {
-          setError(`Unable to access or create the list "${props.listTitle}". Please ensure you have permissions to create lists and fields, or contact your administrator. Error: ${provisioningResult.error}`);
+          const errorMsg = provisioningResult.error || 'Unknown error';
+          setError(`Unable to access or create the list "${props.listTitle}". Please ensure you have permissions to create lists and fields, or contact your administrator. Error: ${errorMsg}`);
           setLoading(false);
           return;
         }
@@ -75,8 +77,14 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
       console.error('Error loading data:', err);
       const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
       
-      if (errorMessage.includes('does not exist') || errorMessage.includes('404')) {
-        setError(`The list "${props.listTitle}" does not exist. ${props.allowListProvisioning ? 'Unable to create it automatically.' : 'Please create the list or enable list provisioning in web part settings.'}`);
+      // Check if this is a list not found error
+      if (errorMessage.includes('does not exist') || errorMessage.includes('404') || errorMessage.includes('ItemNotFoundException')) {
+        if (props.allowListProvisioning) {
+          // If provisioning is enabled but we still get this error, provisioning likely failed
+          setError(`The list "${props.listTitle}" does not exist and could not be created automatically. Please ensure you have "Manage Lists" permission, or contact your administrator.`);
+        } else {
+          setError(`The list "${props.listTitle}" does not exist. Please create the list or enable "Allow List Provisioning" in web part settings.`);
+        }
       } else {
         setError(`Error loading events: ${errorMessage}`);
       }
