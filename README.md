@@ -72,6 +72,8 @@ The web part uses a SharePoint list with the following fields:
 - **RecurrenceRule** (Single line of text): Optional recurrence pattern
   - Format: `MONTHLY_BY_NTH_WEEKDAY:MM:WEEKDAY:NTH`
   - Example: `MONTHLY_BY_NTH_WEEKDAY:09:MONDAY:1` for Labor Day (1st Monday of September)
+  - NTH values: 1=first, 2=second, 3=third, 4=fourth, 5=last
+  - Example: `MONTHLY_BY_NTH_WEEKDAY:05:MONDAY:5` for Memorial Day (last Monday of May)
 - **ImageUrl** (Hyperlink/Picture): Optional image URL for the event
 - **Notes** (Multiple lines of text): Optional notes/description
 
@@ -96,7 +98,8 @@ The web part uses a SharePoint list with the following fields:
 6. Set **RecurrenceRule**: `MONTHLY_BY_NTH_WEEKDAY:09:MONDAY:1`
    - `09` = September (month number)
    - `MONDAY` = Day of week
-   - `1` = First occurrence (1st, 2nd, 3rd, 4th, or last)
+   - `1` = First occurrence (1=first, 2=second, 3=third, 4=fourth, 5=last)
+   - Example for Memorial Day (last Monday of May): `MONTHLY_BY_NTH_WEEKDAY:05:MONDAY:5`
 
 ## Permissions Required
 

@@ -178,7 +178,7 @@ export class RecurrenceCalculator {
 
   /**
    * Find the nth occurrence of a weekday in a given month/year
-   * e.g., 1st Monday of September 2024
+   * e.g., 1st Monday of September 2024, or last Monday of May (nth = 5)
    */
   private static findNthWeekdayInMonth(
     year: number,
@@ -186,6 +186,21 @@ export class RecurrenceCalculator {
     weekday: number,
     nth: number
   ): Date {
+    // Handle "last" occurrence (nth = 5)
+    if (nth === 5) {
+      // Start with the last day of the month
+      const lastDay = new Date(year, month + 1, 0); // Day 0 of next month = last day of current month
+      const lastDayWeekday = lastDay.getDay();
+      
+      // Calculate days to subtract to reach the target weekday
+      let daysToSubtract = (lastDayWeekday - weekday + 7) % 7;
+      
+      const targetDate = new Date(year, month, lastDay.getDate() - daysToSubtract);
+      
+      return targetDate;
+    }
+    
+    // Handle 1st-4th occurrences
     // Start with the first day of the month
     const firstDay = new Date(year, month, 1);
     const firstDayWeekday = firstDay.getDay();

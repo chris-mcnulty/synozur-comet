@@ -71,6 +71,7 @@ The web part uses these fields:
 - `MM`: Month number (01-12)
 - `WEEKDAY`: Day name (SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY)
 - `NTH`: Occurrence number (1=first, 2=second, 3=third, 4=fourth, 5=last)
+- **Note**: Use `5` for the last occurrence of a weekday in the month (e.g., last Monday of May for Memorial Day)
 
 ### Other Examples
 
