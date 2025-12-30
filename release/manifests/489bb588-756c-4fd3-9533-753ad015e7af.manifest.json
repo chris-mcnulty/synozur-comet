@@ -2,7 +2,7 @@
   "id": "489bb588-756c-4fd3-9533-753ad015e7af",
   "alias": "HolidaysBirthdaysWebPart",
   "componentType": "WebPart",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "manifestVersion": 2,
   "requiresCustomScript": false,
   "supportedHosts": [
@@ -41,7 +41,7 @@
     "scriptResources": {
       "holidays-birthdays-web-part": {
         "type": "path",
-        "path": "holidays-birthdays-web-part_0c71f2ef96cf0f028ad3.js"
+        "path": "holidays-birthdays-web-part_92f3dc5b706f59d54a4c.js"
       },
       "@microsoft/sp-property-pane": {
         "type": "component",

@@ -4,31 +4,39 @@
   overflow: hidden;
   padding: 20px;
   // Explicitly inherit font from SharePoint page theme
-  // SharePoint pages use CSS custom properties for fonts, so we inherit from parent
-  font-family: inherit;
+  // Try CSS custom property first (SharePoint modern pages use this), then fallback to inherit
+  font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
   
-  // Override Fluent UI component default fonts to inherit from SharePoint page
-  // Using :global() for CSS Modules to target Fluent UI classes
-  :global(.ms-Text) {
-    font-family: inherit;
+  // Force all child elements to inherit font with !important to override Fluent UI defaults
+  * {
+    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
   }
   
-  :global(.ms-Button) {
-    font-family: inherit;
+  // Override Fluent UI component default fonts with !important
+  :global(.ms-Text),
+  :global(.ms-Text-root),
+  :global(.ms-Button),
+  :global(.ms-Button-label),
+  :global(.ms-IconButton),
+  :global(.ms-Stack),
+  :global(.ms-StackItem) {
+    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
   }
   
-  :global(.ms-IconButton) {
-    font-family: inherit;
-  }
-  
-  :global(.ms-Stack) {
-    font-family: inherit;
+  // Target all text elements more aggressively
+  :global(span),
+  :global(div),
+  :global(p),
+  :global(button) {
+    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
   }
 
   .title {
     font-weight: 600;
     // Use theme token for primary text color
     color: $ms-color-neutralPrimary;
+    // Force font inheritance
+    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
   }
 
   .emptyState {
@@ -46,6 +54,8 @@
     // Use theme light color for border
     border-bottom: 2px solid $ms-color-themeLight;
     padding-bottom: 8px;
+    // Force font inheritance
+    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
   }
 
   .eventItem {
@@ -73,6 +83,8 @@
     // Use theme token for text color
     color: $ms-color-neutralPrimary;
     min-width: 100px;
+    // Force font inheritance
+    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
   }
 
   .eventTitle {
@@ -80,12 +92,16 @@
     // Use theme token for text color
     color: $ms-color-neutralPrimary;
     flex-grow: 1;
+    // Force font inheritance
+    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
   }
 
   .eventNotes {
     // Use theme token for secondary text color
     color: $ms-color-neutralSecondary;
     font-style: italic;
+    // Force font inheritance
+    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
   }
 
   .typeBadge {
@@ -125,6 +141,8 @@
     color: $ms-color-neutralSecondary;
     font-size: 11px;
     line-height: 1.4;
+    // Force font inheritance
+    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
   }
 }
 

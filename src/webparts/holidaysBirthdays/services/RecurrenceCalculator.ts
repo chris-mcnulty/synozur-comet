@@ -188,16 +188,21 @@ export class RecurrenceCalculator {
   ): Date {
     // Handle "last" occurrence (nth = 5)
     if (nth === 5) {
-      // Start with the last day of the month
+      // Find the last occurrence by iterating backwards from the last day of the month
+      // This is more reliable than calculating days to subtract
       const lastDay = new Date(year, month + 1, 0); // Day 0 of next month = last day of current month
-      const lastDayWeekday = lastDay.getDay();
+      const lastDayDate = lastDay.getDate(); // Day number (1-31)
       
-      // Calculate days to subtract to reach the target weekday
-      let daysToSubtract = (lastDayWeekday - weekday + 7) % 7;
+      // Iterate backwards from the last day to find the last occurrence of the target weekday
+      for (let day = lastDayDate; day >= 1; day--) {
+        const checkDate = new Date(year, month, day);
+        if (checkDate.getDay() === weekday) {
+          return checkDate;
+        }
+      }
       
-      const targetDate = new Date(year, month, lastDay.getDate() - daysToSubtract);
-      
-      return targetDate;
+      // This should never happen, but return last day as fallback
+      return lastDay;
     }
     
     // Handle 1st-4th occurrences

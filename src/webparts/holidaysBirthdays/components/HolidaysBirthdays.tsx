@@ -230,10 +230,10 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
   });
 
   return (
-    <div className={styles.holidaysBirthdays}>
+    <div className={styles.holidaysBirthdays} style={{ fontFamily: 'inherit' }}>
       <Stack tokens={{ childrenGap: 16 }}>
         <Stack horizontal horizontalAlign="space-between" verticalAlign="center">
-          <Text variant="xLarge" className={styles.title}>
+          <Text variant="xLarge" className={styles.title} style={{ fontFamily: 'inherit' }}>
             {getTitle()} {!isExpanded && `(Next ${props.daysDefault} days)`}
           </Text>
           <IconButton
@@ -245,7 +245,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
 
         {occurrences.length === 0 ? (
           <Stack tokens={{ childrenGap: 12 }} className={styles.emptyState}>
-            <Text variant="medium">No upcoming events found.</Text>
+            <Text variant="medium" style={{ fontFamily: 'inherit' }}>No upcoming events found.</Text>
             <PrimaryButton
               text="Add Events"
               href={getListUrl()}
@@ -256,7 +256,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
           <Stack tokens={{ childrenGap: 24 }}>
             {monthKeys.map(monthKey => (
               <Stack key={monthKey} tokens={{ childrenGap: 12 }}>
-                <Text variant="large" className={styles.monthHeader}>
+                <Text variant="large" className={styles.monthHeader} style={{ fontFamily: 'inherit' }}>
                   {monthKey}
                 </Text>
                 <Stack tokens={{ childrenGap: 8 }}>
@@ -275,10 +275,10 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
                         )}
                         <Stack tokens={{ childrenGap: 4 }} grow>
                           <Stack horizontal tokens={{ childrenGap: 8 }} verticalAlign="center">
-                            <Text variant="medium" className={styles.eventDate}>
+                            <Text variant="medium" className={styles.eventDate} style={{ fontFamily: 'inherit' }}>
                               {formatDate(event.date)}
                             </Text>
-                            <Text variant="medium" className={styles.eventTitle}>
+                            <Text variant="medium" className={styles.eventTitle} style={{ fontFamily: 'inherit' }}>
                               {event.title}
                             </Text>
                             {props.showTypeBadges && (
@@ -291,7 +291,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
                             )}
                           </Stack>
                           {event.notes && (
-                            <Text variant="small" className={styles.eventNotes}>
+                            <Text variant="small" className={styles.eventNotes} style={{ fontFamily: 'inherit' }}>
                               {event.notes}
                             </Text>
                           )}
@@ -315,7 +315,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
                 imageFit={ImageFit.contain}
                 className={styles.footerLogo}
               />
-              <Text variant="small" className={styles.footerText}>
+              <Text variant="small" className={styles.footerText} style={{ fontFamily: 'inherit' }}>
                 Holidays & Birthdays • © {new Date().getFullYear()} The Synozur Alliance LLC. All Rights Reserved.
               </Text>
             </Stack>
