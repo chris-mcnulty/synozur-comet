@@ -49,103 +49,10 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const [pageFontFamily, setPageFontFamily] = useState<string>('inherit');
 
-  // Get the actual font from the SharePoint page to ensure we match it
-  useEffect(() => {
-    const detectPageFont = () => {
-      try {
-        // Strategy: Find a text element on the SharePoint page that's actually rendered
-        // Look for common SharePoint page elements that contain text with the theme font
-        const selectors = [
-          // SharePoint modern page elements
-          '.CanvasSection .ControlZone',
-          '.CanvasSection',
-          '.ControlZone',
-          // Look for text elements that SharePoint uses
-          '[data-automation-id="CanvasZone"]',
-          '[data-sp-feature-instance-id]',
-          // Fallback to main content areas
-          'main .CanvasSection',
-          'main',
-          'body'
-        ];
-        
-        let pageElement: Element | null = null;
-        let fontFamily: string | null = null;
-        
-        // Try each selector
-        for (const selector of selectors) {
-          const elements = document.querySelectorAll(selector);
-          for (let i = 0; i < elements.length; i++) {
-            const element = elements[i];
-            // Skip our own web part
-            if (props.context?.domElement && element.contains(props.context.domElement)) {
-              continue;
-            }
-            
-            const computedStyle = window.getComputedStyle(element);
-            const font = computedStyle.fontFamily;
-            
-            // Check if this font is actually a theme font (not Times New Roman, Arial, etc.)
-            // SharePoint theme fonts typically include custom font names or Segoe UI
-            if (font && 
-                font !== 'inherit' && 
-                font.trim() !== '' &&
-                !font.includes('Times New Roman') &&
-                !font.includes('Times,') &&
-                !font.includes('serif')) {
-              fontFamily = font;
-              pageElement = element;
-              break;
-            }
-          }
-          if (fontFamily) break;
-        }
-        
-        // If we found a good font, use it
-        if (fontFamily && pageElement) {
-          setPageFontFamily(fontFamily);
-          if (props.context?.domElement) {
-            props.context.domElement.style.setProperty('--page-font-family', fontFamily);
-          }
-        } else {
-          // Fallback: try to get font from a sibling web part or parent container
-          if (props.context?.domElement) {
-            const webPartElement = props.context.domElement;
-            const parent = webPartElement.parentElement;
-            if (parent) {
-              const parentStyle = window.getComputedStyle(parent);
-              const parentFont = parentStyle.fontFamily;
-              if (parentFont && 
-                  parentFont !== 'inherit' && 
-                  parentFont.trim() !== '' &&
-                  !parentFont.includes('Times New Roman')) {
-                setPageFontFamily(parentFont);
-                webPartElement.style.setProperty('--page-font-family', parentFont);
-              }
-            }
-          }
-        }
-      } catch (e) {
-        // Fallback to inherit if we can't get the font
-        console.warn('Could not get page font family:', e);
-      }
-    };
-
-    // Run immediately and also after delays to catch late-loading elements
-    detectPageFont();
-    const timeout1 = setTimeout(detectPageFont, 100);
-    const timeout2 = setTimeout(detectPageFont, 500);
-    
-    return () => {
-      clearTimeout(timeout1);
-      clearTimeout(timeout2);
-    };
-  }, [props.context]);
-
-  // Fluent UI components automatically inherit theme from SharePoint page context
-  // getTheme() returns the current SharePoint theme, which is used by all Fluent UI components
+  // SharePoint Brand Center fonts are automatically available via CSS variables
+  // The SCSS file uses --fontFamilyCustomFont100 for body text and --fontFamilyCustomFont1000 for headlines
+  // These variables are set by SharePoint when a custom font package is applied to the site
 
   const initializePnP = useCallback(() => {
     sp.setup({
@@ -324,10 +231,10 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
   });
 
   return (
-    <div className={styles.holidaysBirthdays} style={{ fontFamily: pageFontFamily }}>
+    <div className={styles.holidaysBirthdays}>
       <Stack tokens={{ childrenGap: 16 }}>
         <Stack horizontal horizontalAlign="space-between" verticalAlign="center">
-          <Text variant="xLarge" className={styles.title} style={{ fontFamily: pageFontFamily }}>
+          <Text variant="xLarge" className={styles.title}>
             {getTitle()} {!isExpanded && `(Next ${props.daysDefault} days)`}
           </Text>
           <IconButton
@@ -340,7 +247,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
 
         {occurrences.length === 0 ? (
           <Stack tokens={{ childrenGap: 12 }} className={styles.emptyState}>
-            <Text variant="medium" style={{ fontFamily: pageFontFamily }}>No upcoming events found.</Text>
+            <Text variant="medium">No upcoming events found.</Text>
             <PrimaryButton
               text="Add Events"
               href={getListUrl()}
@@ -351,7 +258,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
           <Stack tokens={{ childrenGap: 24 }}>
             {monthKeys.map(monthKey => (
               <Stack key={monthKey} tokens={{ childrenGap: 12 }}>
-                <Text variant="large" className={styles.monthHeader} style={{ fontFamily: pageFontFamily }}>
+                <Text variant="large" className={styles.monthHeader}>
                   {monthKey}
                 </Text>
                 <Stack tokens={{ childrenGap: 8 }}>
@@ -370,10 +277,10 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
                         )}
                         <Stack tokens={{ childrenGap: 4 }} grow>
                           <Stack horizontal tokens={{ childrenGap: 8 }} verticalAlign="center">
-                            <Text variant="medium" className={styles.eventDate} style={{ fontFamily: pageFontFamily }}>
+                            <Text variant="medium" className={styles.eventDate}>
                               {formatDate(event.date)}
                             </Text>
-                            <Text variant="medium" className={styles.eventTitle} style={{ fontFamily: pageFontFamily }}>
+                            <Text variant="medium" className={styles.eventTitle}>
                               {event.title}
                             </Text>
                             {props.showTypeBadges && (
@@ -386,7 +293,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
                             )}
                           </Stack>
                           {event.notes && (
-                            <Text variant="small" className={styles.eventNotes} style={{ fontFamily: pageFontFamily }}>
+                            <Text variant="small" className={styles.eventNotes}>
                               {event.notes}
                             </Text>
                           )}
@@ -410,7 +317,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
                 imageFit={ImageFit.contain}
                 className={styles.footerLogo}
               />
-              <Text variant="small" className={styles.footerText} style={{ fontFamily: pageFontFamily }}>
+              <Text variant="small" className={styles.footerText}>
                 Holidays & Birthdays • © {new Date().getFullYear()} The Synozur Alliance LLC. All Rights Reserved.
               </Text>
             </Stack>

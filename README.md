@@ -5,6 +5,7 @@ An SPFx React web part for SharePoint Online that displays upcoming holidays and
 ## Features
 
 - **Automatic List Provisioning**: Creates the required SharePoint list and fields automatically on first run (idempotent)
+- **SharePoint Brand Fonts Support**: Automatically inherits custom fonts from SharePoint Brand Center font packages
 - **Recurrence Support**: 
   - Annual recurrence for birthdays and fixed-date holidays
   - Complex recurrence rules for moving holidays (e.g., "1st Monday of September" for Labor Day)
@@ -100,6 +101,20 @@ The web part uses a SharePoint list with the following fields:
    - `MONDAY` = Day of week
    - `1` = First occurrence (1=first, 2=second, 3=third, 4=fourth, 5=last)
    - Example for Memorial Day (last Monday of May): `MONTHLY_BY_NTH_WEEKDAY:05:MONDAY:5`
+
+## SharePoint Brand Fonts
+
+The web part automatically inherits custom fonts from SharePoint Brand Center font packages. When a site administrator uploads and applies custom fonts via:
+1. SharePoint Admin Center → Brand Center → Brand fonts
+2. Site Settings → Change the Look → Fonts
+
+The web part will automatically use those fonts for:
+- **Body text** (event titles, dates, notes, footer): Uses the Brand Center "Body" font
+- **Headlines** (month headers): Uses the Brand Center "Headline" font
+
+No configuration is required - the fonts are applied automatically through SharePoint's CSS variables (`--fontFamilyCustomFont100` for body, `--fontFamilyCustomFont1000` for headlines).
+
+If no custom fonts are configured, the web part falls back to SharePoint's default theme fonts.
 
 ## Permissions Required
 
