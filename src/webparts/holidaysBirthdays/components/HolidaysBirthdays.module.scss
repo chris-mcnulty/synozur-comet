@@ -167,16 +167,57 @@
   }
 
   .toggleButton {
-    // Ensure icon font is used for the toggle button
+    // Ensure icon font is used for the toggle button with highest specificity
+    // Apply directly to the button and all nested elements
+    &,
+    & *,
+    &::before,
+    &::after,
+    & *::before,
+    & *::after,
     :global(.ms-Icon),
     :global(.ms-Icon::before),
     :global(i),
     :global(i::before),
     :global(span),
-    :global(span::before) {
+    :global(span::before),
+    :global([data-icon-name]),
+    :global([data-icon-name]::before) {
       font-family: "FabricMDL2Icons" !important;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  .eventsContainer {
+    // Default container - no scrolling, normal flow
+    display: block;
+  }
+
+  .eventsContainerExpanded {
+    // Expanded container with scrolling
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+    
+    // Customize scrollbar for better appearance
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: $ms-color-neutralLighter;
+      border-radius: 4px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: $ms-color-neutralTertiary;
+      border-radius: 4px;
+      
+      &:hover {
+        background: $ms-color-neutralSecondary;
+      }
     }
   }
 }
