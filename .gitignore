@@ -13,6 +13,10 @@ lib/
 dist/
 temp/
 *.local
+release/
+
+# TypeScript generated files
+*.scss.ts
 
 # Coverage directory used by tools like istanbul
 coverage/
