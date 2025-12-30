@@ -41,11 +41,7 @@
     "scriptResources": {
       "holidays-birthdays-web-part": {
         "type": "path",
-<<<<<<< HEAD
-        "path": "holidays-birthdays-web-part_06653c7479a603d78c22.js"
-=======
         "path": "holidays-birthdays-web-part.js"
->>>>>>> 51075d3be3e6c087325462c553bb854d56a2f164
       },
       "@microsoft/sp-property-pane": {
         "type": "component",
