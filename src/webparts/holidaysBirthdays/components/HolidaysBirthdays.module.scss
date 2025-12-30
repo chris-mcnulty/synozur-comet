@@ -201,7 +201,11 @@
     overflow-x: hidden;
     padding-right: 8px;
     
-    // Customize scrollbar for better appearance
+    // Firefox scrollbar styling
+    scrollbar-width: thin;
+    scrollbar-color: $ms-color-neutralTertiary $ms-color-neutralLighter;
+    
+    // Customize scrollbar for better appearance (WebKit browsers)
     &::-webkit-scrollbar {
       width: 8px;
     }

@@ -1,23 +1,23 @@
 /* tslint:disable */
 require("./HolidaysBirthdays.module.css");
 const styles = {
-  holidaysBirthdays: 'holidaysBirthdays_353b7be9',
-  title: 'title_353b7be9',
-  emptyState: 'emptyState_353b7be9',
-  monthHeader: 'monthHeader_353b7be9',
-  eventItem: 'eventItem_353b7be9',
-  eventImage: 'eventImage_353b7be9',
-  eventDate: 'eventDate_353b7be9',
-  eventTitle: 'eventTitle_353b7be9',
-  eventNotes: 'eventNotes_353b7be9',
-  typeBadge: 'typeBadge_353b7be9',
-  errorHint: 'errorHint_353b7be9',
-  footer: 'footer_353b7be9',
-  footerLogo: 'footerLogo_353b7be9',
-  footerText: 'footerText_353b7be9',
-  toggleButton: 'toggleButton_353b7be9',
-  eventsContainer: 'eventsContainer_353b7be9',
-  eventsContainerExpanded: 'eventsContainerExpanded_353b7be9'
+  holidaysBirthdays: 'holidaysBirthdays_43c6ec01',
+  title: 'title_43c6ec01',
+  emptyState: 'emptyState_43c6ec01',
+  monthHeader: 'monthHeader_43c6ec01',
+  eventItem: 'eventItem_43c6ec01',
+  eventImage: 'eventImage_43c6ec01',
+  eventDate: 'eventDate_43c6ec01',
+  eventTitle: 'eventTitle_43c6ec01',
+  eventNotes: 'eventNotes_43c6ec01',
+  typeBadge: 'typeBadge_43c6ec01',
+  errorHint: 'errorHint_43c6ec01',
+  footer: 'footer_43c6ec01',
+  footerLogo: 'footerLogo_43c6ec01',
+  footerText: 'footerText_43c6ec01',
+  toggleButton: 'toggleButton_43c6ec01',
+  eventsContainer: 'eventsContainer_43c6ec01',
+  eventsContainerExpanded: 'eventsContainerExpanded_43c6ec01'
 };
 
 export default styles;
