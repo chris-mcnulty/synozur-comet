@@ -3,16 +3,16 @@
 .holidaysBirthdays {
   overflow: hidden;
   padding: 20px;
-  // Explicitly inherit font from SharePoint page theme
-  // Try CSS custom property first (SharePoint modern pages use this), then fallback to inherit
-  font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
+  // Inherit font from SharePoint page theme - will use organization's configured font
+  // (Segoe UI for standard orgs, Avenir for custom font orgs, etc.)
+  font-family: inherit !important;
   
   // Force all child elements to inherit font with !important to override Fluent UI defaults
   * {
-    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
+    font-family: inherit !important;
   }
   
-  // Override Fluent UI component default fonts with !important
+  // Override Fluent UI component default fonts with !important to inherit from page
   :global(.ms-Text),
   :global(.ms-Text-root),
   :global(.ms-Button),
@@ -20,23 +20,23 @@
   :global(.ms-IconButton),
   :global(.ms-Stack),
   :global(.ms-StackItem) {
-    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
+    font-family: inherit !important;
   }
   
-  // Target all text elements more aggressively
+  // Target all text elements to inherit from parent
   :global(span),
   :global(div),
   :global(p),
   :global(button) {
-    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
+    font-family: inherit !important;
   }
 
   .title {
     font-weight: 600;
     // Use theme token for primary text color
     color: $ms-color-neutralPrimary;
-    // Force font inheritance
-    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
+    // Inherit font from SharePoint page (organization's configured font)
+    font-family: inherit !important;
   }
 
   .emptyState {
@@ -54,8 +54,8 @@
     // Use theme light color for border
     border-bottom: 2px solid $ms-color-themeLight;
     padding-bottom: 8px;
-    // Force font inheritance
-    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
+    // Inherit font from SharePoint page (organization's configured font)
+    font-family: inherit !important;
   }
 
   .eventItem {
@@ -83,8 +83,8 @@
     // Use theme token for text color
     color: $ms-color-neutralPrimary;
     min-width: 100px;
-    // Force font inheritance
-    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
+    // Inherit font from SharePoint page (organization's configured font)
+    font-family: inherit !important;
   }
 
   .eventTitle {
@@ -92,16 +92,16 @@
     // Use theme token for text color
     color: $ms-color-neutralPrimary;
     flex-grow: 1;
-    // Force font inheritance
-    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
+    // Inherit font from SharePoint page (organization's configured font)
+    font-family: inherit !important;
   }
 
   .eventNotes {
     // Use theme token for secondary text color
     color: $ms-color-neutralSecondary;
     font-style: italic;
-    // Force font inheritance
-    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
+    // Inherit font from SharePoint page (organization's configured font)
+    font-family: inherit !important;
   }
 
   .typeBadge {
@@ -141,8 +141,8 @@
     color: $ms-color-neutralSecondary;
     font-size: 11px;
     line-height: 1.4;
-    // Force font inheritance
-    font-family: var(--bodyFontFamily, var(--primaryFontFamily, inherit)) !important;
+    // Inherit font from SharePoint page (organization's configured font)
+    font-family: inherit !important;
   }
 }
 
