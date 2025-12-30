@@ -19,14 +19,28 @@
   }
   
   // Icon elements must use Fabric MDL2 icon font - override any page font
+  // Target all possible icon rendering methods in Fluent UI
   :global(.ms-Icon),
+  :global(.ms-Icon::before),
   :global([data-icon-name]),
   :global(i[data-icon-name]),
+  :global(i[data-icon-name]::before),
+  :global(.ms-IconButton),
   :global(.ms-IconButton i),
-  :global(.ms-IconButton span[data-icon-name]),
-  :global(.ms-IconButton [data-icon-name]) {
+  :global(.ms-IconButton i::before),
+  :global(.ms-IconButton span),
+  :global(.ms-IconButton span::before),
+  :global(.ms-IconButton [data-icon-name]),
+  :global(.ms-IconButton [data-icon-name]::before),
+  :global(button[data-icon-name]),
+  :global(button[data-icon-name]::before),
+  :global([role="button"][data-icon-name]),
+  :global([role="button"][data-icon-name]::before) {
     // Icons must use Fabric MDL2 icon font, not page font
     font-family: "FabricMDL2Icons" !important;
+    // Ensure font is loaded and applied
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   // Target text elements, but exclude icon containers
@@ -149,6 +163,20 @@
     line-height: 1.4;
     // Use page font from CSS custom property
     font-family: var(--page-font-family, inherit) !important;
+  }
+
+  .toggleButton {
+    // Ensure icon font is used for the toggle button
+    :global(.ms-Icon),
+    :global(.ms-Icon::before),
+    :global(i),
+    :global(i::before),
+    :global(span),
+    :global(span::before) {
+      font-family: "FabricMDL2Icons" !important;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
   }
 }
 

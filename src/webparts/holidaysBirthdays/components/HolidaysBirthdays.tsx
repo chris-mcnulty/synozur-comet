@@ -55,35 +55,75 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
   useEffect(() => {
     const detectPageFont = () => {
       try {
-        // Try multiple selectors to find the SharePoint page content area
+        // Strategy: Find a text element on the SharePoint page that's actually rendered
+        // Look for common SharePoint page elements that contain text with the theme font
         const selectors = [
-          '[data-sp-feature-instance-id]',
+          // SharePoint modern page elements
+          '.CanvasSection .ControlZone',
           '.CanvasSection',
           '.ControlZone',
+          // Look for text elements that SharePoint uses
+          '[data-automation-id="CanvasZone"]',
+          '[data-sp-feature-instance-id]',
+          // Fallback to main content areas
+          'main .CanvasSection',
           'main',
           'body'
         ];
         
         let pageElement: Element | null = null;
+        let fontFamily: string | null = null;
+        
+        // Try each selector
         for (const selector of selectors) {
-          pageElement = document.querySelector(selector);
-          if (pageElement) break;
+          const elements = document.querySelectorAll(selector);
+          for (let i = 0; i < elements.length; i++) {
+            const element = elements[i];
+            // Skip our own web part
+            if (props.context?.domElement && element.contains(props.context.domElement)) {
+              continue;
+            }
+            
+            const computedStyle = window.getComputedStyle(element);
+            const font = computedStyle.fontFamily;
+            
+            // Check if this font is actually a theme font (not Times New Roman, Arial, etc.)
+            // SharePoint theme fonts typically include custom font names or Segoe UI
+            if (font && 
+                font !== 'inherit' && 
+                font.trim() !== '' &&
+                !font.includes('Times New Roman') &&
+                !font.includes('Times,') &&
+                !font.includes('serif')) {
+              fontFamily = font;
+              pageElement = element;
+              break;
+            }
+          }
+          if (fontFamily) break;
         }
         
-        // Fallback to body if nothing found
-        if (!pageElement) {
-          pageElement = document.body || document.documentElement;
-        }
-        
-        if (pageElement) {
-          const computedStyle = window.getComputedStyle(pageElement);
-          const fontFamily = computedStyle.fontFamily;
-          // Use the full font stack from the page
-          if (fontFamily && fontFamily !== 'inherit' && fontFamily.trim() !== '') {
-            setPageFontFamily(fontFamily);
-            // Also set as CSS custom property for SCSS to use
-            if (props.context?.domElement) {
-              props.context.domElement.style.setProperty('--page-font-family', fontFamily);
+        // If we found a good font, use it
+        if (fontFamily && pageElement) {
+          setPageFontFamily(fontFamily);
+          if (props.context?.domElement) {
+            props.context.domElement.style.setProperty('--page-font-family', fontFamily);
+          }
+        } else {
+          // Fallback: try to get font from a sibling web part or parent container
+          if (props.context?.domElement) {
+            const webPartElement = props.context.domElement;
+            const parent = webPartElement.parentElement;
+            if (parent) {
+              const parentStyle = window.getComputedStyle(parent);
+              const parentFont = parentStyle.fontFamily;
+              if (parentFont && 
+                  parentFont !== 'inherit' && 
+                  parentFont.trim() !== '' &&
+                  !parentFont.includes('Times New Roman')) {
+                setPageFontFamily(parentFont);
+                webPartElement.style.setProperty('--page-font-family', parentFont);
+              }
             }
           }
         }
@@ -93,11 +133,15 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
       }
     };
 
-    // Run immediately and also after a short delay to catch late-loading elements
+    // Run immediately and also after delays to catch late-loading elements
     detectPageFont();
-    const timeout = setTimeout(detectPageFont, 100);
+    const timeout1 = setTimeout(detectPageFont, 100);
+    const timeout2 = setTimeout(detectPageFont, 500);
     
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+    };
   }, [props.context]);
 
   // Fluent UI components automatically inherit theme from SharePoint page context
@@ -290,6 +334,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
             iconProps={{ iconName: isExpanded ? 'ChevronUp' : 'ChevronDown' }}
             title={isExpanded ? 'Show fewer events' : 'Show more events'}
             onClick={() => setIsExpanded(!isExpanded)}
+            className={styles.toggleButton}
           />
         </Stack>
 
