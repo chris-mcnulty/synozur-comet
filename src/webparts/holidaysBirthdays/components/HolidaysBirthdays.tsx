@@ -255,56 +255,58 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
             />
           </Stack>
         ) : (
-          <Stack tokens={{ childrenGap: 24 }}>
-            {monthKeys.map(monthKey => (
-              <Stack key={monthKey} tokens={{ childrenGap: 12 }}>
-                <Text variant="large" className={styles.monthHeader}>
-                  {monthKey}
-                </Text>
-                <Stack tokens={{ childrenGap: 8 }}>
-                  {groupedEvents[monthKey].map((event, index) => (
-                    <div key={`${event.date.getTime()}-${index}`} className={styles.eventItem}>
-                      <Stack horizontal tokens={{ childrenGap: 12 }} verticalAlign="center">
-                        {props.showImages && (
-                          <Image
-                            src={getImageUrl(event)}
-                            alt={event.title}
-                            width={48}
-                            height={48}
-                            imageFit={ImageFit.cover}
-                            className={styles.eventImage}
-                          />
-                        )}
-                        <Stack tokens={{ childrenGap: 4 }} grow>
-                          <Stack horizontal tokens={{ childrenGap: 8 }} verticalAlign="center">
-                            <Text variant="medium" className={styles.eventDate}>
-                              {formatDate(event.date)}
-                            </Text>
-                            <Text variant="medium" className={styles.eventTitle}>
-                              {event.title}
-                            </Text>
-                            {props.showTypeBadges && (
-                              <span
-                                className={styles.typeBadge}
-                                style={{ backgroundColor: getTypeBadgeColor(event.eventType) }}
-                              >
-                                {event.eventType}
-                              </span>
+          <div className={isExpanded ? styles.eventsContainerExpanded : styles.eventsContainer}>
+            <Stack tokens={{ childrenGap: 24 }}>
+              {monthKeys.map(monthKey => (
+                <Stack key={monthKey} tokens={{ childrenGap: 12 }}>
+                  <Text variant="large" className={styles.monthHeader}>
+                    {monthKey}
+                  </Text>
+                  <Stack tokens={{ childrenGap: 8 }}>
+                    {groupedEvents[monthKey].map((event, index) => (
+                      <div key={`${event.date.getTime()}-${index}`} className={styles.eventItem}>
+                        <Stack horizontal tokens={{ childrenGap: 12 }} verticalAlign="center">
+                          {props.showImages && (
+                            <Image
+                              src={getImageUrl(event)}
+                              alt={event.title}
+                              width={48}
+                              height={48}
+                              imageFit={ImageFit.cover}
+                              className={styles.eventImage}
+                            />
+                          )}
+                          <Stack tokens={{ childrenGap: 4 }} grow>
+                            <Stack horizontal tokens={{ childrenGap: 8 }} verticalAlign="center">
+                              <Text variant="medium" className={styles.eventDate}>
+                                {formatDate(event.date)}
+                              </Text>
+                              <Text variant="medium" className={styles.eventTitle}>
+                                {event.title}
+                              </Text>
+                              {props.showTypeBadges && (
+                                <span
+                                  className={styles.typeBadge}
+                                  style={{ backgroundColor: getTypeBadgeColor(event.eventType) }}
+                                >
+                                  {event.eventType}
+                                </span>
+                              )}
+                            </Stack>
+                            {event.notes && (
+                              <Text variant="small" className={styles.eventNotes}>
+                                {event.notes}
+                              </Text>
                             )}
                           </Stack>
-                          {event.notes && (
-                            <Text variant="small" className={styles.eventNotes}>
-                              {event.notes}
-                            </Text>
-                          )}
                         </Stack>
-                      </Stack>
-                    </div>
-                  ))}
+                      </div>
+                    ))}
+                  </Stack>
                 </Stack>
-              </Stack>
-            ))}
-          </Stack>
+              ))}
+            </Stack>
+          </div>
         )}
         {props.showFooter && (
           <div className={styles.footer}>

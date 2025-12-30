@@ -41,7 +41,11 @@
     "scriptResources": {
       "holidays-birthdays-web-part": {
         "type": "path",
+<<<<<<< HEAD
         "path": "holidays-birthdays-web-part_06653c7479a603d78c22.js"
+=======
+        "path": "holidays-birthdays-web-part.js"
+>>>>>>> 51075d3be3e6c087325462c553bb854d56a2f164
       },
       "@microsoft/sp-property-pane": {
         "type": "component",
@@ -50,7 +54,7 @@
       },
       "HolidaysBirthdaysWebPartStrings": {
         "type": "path",
-        "path": "HolidaysBirthdaysWebPartStrings_en-us_3dc9a8c276c1d28e0e11bc3c3a49bb65.js"
+        "path": "HolidaysBirthdaysWebPartStrings_en-us.js"
       },
       "@microsoft/sp-core-library": {
         "type": "component",

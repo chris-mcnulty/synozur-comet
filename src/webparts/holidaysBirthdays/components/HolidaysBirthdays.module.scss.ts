@@ -1,21 +1,23 @@
 /* tslint:disable */
 require("./HolidaysBirthdays.module.css");
 const styles = {
-  holidaysBirthdays: 'holidaysBirthdays_f44bd4a9',
-  title: 'title_f44bd4a9',
-  emptyState: 'emptyState_f44bd4a9',
-  monthHeader: 'monthHeader_f44bd4a9',
-  eventItem: 'eventItem_f44bd4a9',
-  eventImage: 'eventImage_f44bd4a9',
-  eventDate: 'eventDate_f44bd4a9',
-  eventTitle: 'eventTitle_f44bd4a9',
-  eventNotes: 'eventNotes_f44bd4a9',
-  typeBadge: 'typeBadge_f44bd4a9',
-  errorHint: 'errorHint_f44bd4a9',
-  footer: 'footer_f44bd4a9',
-  footerLogo: 'footerLogo_f44bd4a9',
-  footerText: 'footerText_f44bd4a9',
-  toggleButton: 'toggleButton_f44bd4a9'
+  holidaysBirthdays: 'holidaysBirthdays_43c6ec01',
+  title: 'title_43c6ec01',
+  emptyState: 'emptyState_43c6ec01',
+  monthHeader: 'monthHeader_43c6ec01',
+  eventItem: 'eventItem_43c6ec01',
+  eventImage: 'eventImage_43c6ec01',
+  eventDate: 'eventDate_43c6ec01',
+  eventTitle: 'eventTitle_43c6ec01',
+  eventNotes: 'eventNotes_43c6ec01',
+  typeBadge: 'typeBadge_43c6ec01',
+  errorHint: 'errorHint_43c6ec01',
+  footer: 'footer_43c6ec01',
+  footerLogo: 'footerLogo_43c6ec01',
+  footerText: 'footerText_43c6ec01',
+  toggleButton: 'toggleButton_43c6ec01',
+  eventsContainer: 'eventsContainer_43c6ec01',
+  eventsContainerExpanded: 'eventsContainerExpanded_43c6ec01'
 };
 
 export default styles;
