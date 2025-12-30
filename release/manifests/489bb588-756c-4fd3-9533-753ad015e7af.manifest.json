@@ -2,7 +2,7 @@
   "id": "489bb588-756c-4fd3-9533-753ad015e7af",
   "alias": "HolidaysBirthdaysWebPart",
   "componentType": "WebPart",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "manifestVersion": 2,
   "requiresCustomScript": false,
   "supportedHosts": [
