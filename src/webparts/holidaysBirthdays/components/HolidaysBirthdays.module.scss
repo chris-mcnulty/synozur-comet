@@ -3,8 +3,27 @@
 .holidaysBirthdays {
   overflow: hidden;
   padding: 20px;
-  // Inherit font from SharePoint page theme - remove hardcoded font-family
-  // font-family will inherit from the page's theme
+  // Explicitly inherit font from SharePoint page theme
+  // SharePoint pages use CSS custom properties for fonts, so we inherit from parent
+  font-family: inherit;
+  
+  // Override Fluent UI component default fonts to inherit from SharePoint page
+  // Using :global() for CSS Modules to target Fluent UI classes
+  :global(.ms-Text) {
+    font-family: inherit;
+  }
+  
+  :global(.ms-Button) {
+    font-family: inherit;
+  }
+  
+  :global(.ms-IconButton) {
+    font-family: inherit;
+  }
+  
+  :global(.ms-Stack) {
+    font-family: inherit;
+  }
 
   .title {
     font-weight: 600;
