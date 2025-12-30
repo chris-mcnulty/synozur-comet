@@ -1,20 +1,20 @@
 /* tslint:disable */
 require("./HolidaysBirthdays.module.css");
 const styles = {
-  holidaysBirthdays: 'holidaysBirthdays_759ae93b',
-  title: 'title_759ae93b',
-  emptyState: 'emptyState_759ae93b',
-  monthHeader: 'monthHeader_759ae93b',
-  eventItem: 'eventItem_759ae93b',
-  eventImage: 'eventImage_759ae93b',
-  eventDate: 'eventDate_759ae93b',
-  eventTitle: 'eventTitle_759ae93b',
-  eventNotes: 'eventNotes_759ae93b',
-  typeBadge: 'typeBadge_759ae93b',
-  errorHint: 'errorHint_759ae93b',
-  footer: 'footer_759ae93b',
-  footerLogo: 'footerLogo_759ae93b',
-  footerText: 'footerText_759ae93b'
+  holidaysBirthdays: 'holidaysBirthdays_a3e23628',
+  title: 'title_a3e23628',
+  emptyState: 'emptyState_a3e23628',
+  monthHeader: 'monthHeader_a3e23628',
+  eventItem: 'eventItem_a3e23628',
+  eventImage: 'eventImage_a3e23628',
+  eventDate: 'eventDate_a3e23628',
+  eventTitle: 'eventTitle_a3e23628',
+  eventNotes: 'eventNotes_a3e23628',
+  typeBadge: 'typeBadge_a3e23628',
+  errorHint: 'errorHint_a3e23628',
+  footer: 'footer_a3e23628',
+  footerLogo: 'footerLogo_a3e23628',
+  footerText: 'footerText_a3e23628'
 };
 
 export default styles;
