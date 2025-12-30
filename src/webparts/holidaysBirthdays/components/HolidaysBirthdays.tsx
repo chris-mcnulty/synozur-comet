@@ -49,6 +49,56 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [pageFontFamily, setPageFontFamily] = useState<string>('inherit');
+
+  // Get the actual font from the SharePoint page to ensure we match it
+  useEffect(() => {
+    const detectPageFont = () => {
+      try {
+        // Try multiple selectors to find the SharePoint page content area
+        const selectors = [
+          '[data-sp-feature-instance-id]',
+          '.CanvasSection',
+          '.ControlZone',
+          'main',
+          'body'
+        ];
+        
+        let pageElement: Element | null = null;
+        for (const selector of selectors) {
+          pageElement = document.querySelector(selector);
+          if (pageElement) break;
+        }
+        
+        // Fallback to body if nothing found
+        if (!pageElement) {
+          pageElement = document.body || document.documentElement;
+        }
+        
+        if (pageElement) {
+          const computedStyle = window.getComputedStyle(pageElement);
+          const fontFamily = computedStyle.fontFamily;
+          // Use the full font stack from the page
+          if (fontFamily && fontFamily !== 'inherit' && fontFamily.trim() !== '') {
+            setPageFontFamily(fontFamily);
+            // Also set as CSS custom property for SCSS to use
+            if (props.context?.domElement) {
+              props.context.domElement.style.setProperty('--page-font-family', fontFamily);
+            }
+          }
+        }
+      } catch (e) {
+        // Fallback to inherit if we can't get the font
+        console.warn('Could not get page font family:', e);
+      }
+    };
+
+    // Run immediately and also after a short delay to catch late-loading elements
+    detectPageFont();
+    const timeout = setTimeout(detectPageFont, 100);
+    
+    return () => clearTimeout(timeout);
+  }, [props.context]);
 
   // Fluent UI components automatically inherit theme from SharePoint page context
   // getTheme() returns the current SharePoint theme, which is used by all Fluent UI components
@@ -230,10 +280,10 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
   });
 
   return (
-    <div className={styles.holidaysBirthdays} style={{ fontFamily: 'inherit' }}>
+    <div className={styles.holidaysBirthdays} style={{ fontFamily: pageFontFamily }}>
       <Stack tokens={{ childrenGap: 16 }}>
         <Stack horizontal horizontalAlign="space-between" verticalAlign="center">
-          <Text variant="xLarge" className={styles.title} style={{ fontFamily: 'inherit' }}>
+          <Text variant="xLarge" className={styles.title} style={{ fontFamily: pageFontFamily }}>
             {getTitle()} {!isExpanded && `(Next ${props.daysDefault} days)`}
           </Text>
           <IconButton
@@ -245,7 +295,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
 
         {occurrences.length === 0 ? (
           <Stack tokens={{ childrenGap: 12 }} className={styles.emptyState}>
-            <Text variant="medium" style={{ fontFamily: 'inherit' }}>No upcoming events found.</Text>
+            <Text variant="medium" style={{ fontFamily: pageFontFamily }}>No upcoming events found.</Text>
             <PrimaryButton
               text="Add Events"
               href={getListUrl()}
@@ -256,7 +306,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
           <Stack tokens={{ childrenGap: 24 }}>
             {monthKeys.map(monthKey => (
               <Stack key={monthKey} tokens={{ childrenGap: 12 }}>
-                <Text variant="large" className={styles.monthHeader} style={{ fontFamily: 'inherit' }}>
+                <Text variant="large" className={styles.monthHeader} style={{ fontFamily: pageFontFamily }}>
                   {monthKey}
                 </Text>
                 <Stack tokens={{ childrenGap: 8 }}>
@@ -275,10 +325,10 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
                         )}
                         <Stack tokens={{ childrenGap: 4 }} grow>
                           <Stack horizontal tokens={{ childrenGap: 8 }} verticalAlign="center">
-                            <Text variant="medium" className={styles.eventDate} style={{ fontFamily: 'inherit' }}>
+                            <Text variant="medium" className={styles.eventDate} style={{ fontFamily: pageFontFamily }}>
                               {formatDate(event.date)}
                             </Text>
-                            <Text variant="medium" className={styles.eventTitle} style={{ fontFamily: 'inherit' }}>
+                            <Text variant="medium" className={styles.eventTitle} style={{ fontFamily: pageFontFamily }}>
                               {event.title}
                             </Text>
                             {props.showTypeBadges && (
@@ -291,7 +341,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
                             )}
                           </Stack>
                           {event.notes && (
-                            <Text variant="small" className={styles.eventNotes} style={{ fontFamily: 'inherit' }}>
+                            <Text variant="small" className={styles.eventNotes} style={{ fontFamily: pageFontFamily }}>
                               {event.notes}
                             </Text>
                           )}
@@ -315,7 +365,7 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
                 imageFit={ImageFit.contain}
                 className={styles.footerLogo}
               />
-              <Text variant="small" className={styles.footerText} style={{ fontFamily: 'inherit' }}>
+              <Text variant="small" className={styles.footerText} style={{ fontFamily: pageFontFamily }}>
                 Holidays & Birthdays • © {new Date().getFullYear()} The Synozur Alliance LLC. All Rights Reserved.
               </Text>
             </Stack>

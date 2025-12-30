@@ -3,40 +3,46 @@
 .holidaysBirthdays {
   overflow: hidden;
   padding: 20px;
-  // Inherit font from SharePoint page theme - will use organization's configured font
-  // (Segoe UI for standard orgs, Avenir for custom font orgs, etc.)
-  font-family: inherit !important;
+  // Use CSS custom property set by JavaScript, or inherit from SharePoint page
+  // This ensures we get the actual page font (Avenir, Segoe, etc.)
+  font-family: var(--page-font-family, inherit) !important;
   
-  // Force all child elements to inherit font with !important to override Fluent UI defaults
-  * {
-    font-family: inherit !important;
-  }
-  
-  // Override Fluent UI component default fonts with !important to inherit from page
+  // Override Fluent UI component default fonts with !important
+  // Exclude icon elements - they need to use Fabric MDL2 icon font
   :global(.ms-Text),
   :global(.ms-Text-root),
   :global(.ms-Button),
   :global(.ms-Button-label),
-  :global(.ms-IconButton),
   :global(.ms-Stack),
   :global(.ms-StackItem) {
-    font-family: inherit !important;
+    font-family: var(--page-font-family, inherit) !important;
   }
   
-  // Target all text elements to inherit from parent
-  :global(span),
-  :global(div),
+  // Icon elements must use Fabric MDL2 icon font - override any page font
+  :global(.ms-Icon),
+  :global([data-icon-name]),
+  :global(i[data-icon-name]),
+  :global(.ms-IconButton i),
+  :global(.ms-IconButton span[data-icon-name]),
+  :global(.ms-IconButton [data-icon-name]) {
+    // Icons must use Fabric MDL2 icon font, not page font
+    font-family: "FabricMDL2Icons" !important;
+  }
+  
+  // Target text elements, but exclude icon containers
+  :global(span):not(:global([data-icon-name])):not(:global(.ms-Icon)),
+  :global(div):not(:global(.ms-Icon)),
   :global(p),
-  :global(button) {
-    font-family: inherit !important;
+  :global(button):not(:global(.ms-IconButton)) {
+    font-family: var(--page-font-family, inherit) !important;
   }
 
   .title {
     font-weight: 600;
     // Use theme token for primary text color
     color: $ms-color-neutralPrimary;
-    // Inherit font from SharePoint page (organization's configured font)
-    font-family: inherit !important;
+    // Use page font from CSS custom property
+    font-family: var(--page-font-family, inherit) !important;
   }
 
   .emptyState {
@@ -54,8 +60,8 @@
     // Use theme light color for border
     border-bottom: 2px solid $ms-color-themeLight;
     padding-bottom: 8px;
-    // Inherit font from SharePoint page (organization's configured font)
-    font-family: inherit !important;
+    // Use page font from CSS custom property
+    font-family: var(--page-font-family, inherit) !important;
   }
 
   .eventItem {
@@ -83,8 +89,8 @@
     // Use theme token for text color
     color: $ms-color-neutralPrimary;
     min-width: 100px;
-    // Inherit font from SharePoint page (organization's configured font)
-    font-family: inherit !important;
+    // Use page font from CSS custom property
+    font-family: var(--page-font-family, inherit) !important;
   }
 
   .eventTitle {
@@ -92,16 +98,16 @@
     // Use theme token for text color
     color: $ms-color-neutralPrimary;
     flex-grow: 1;
-    // Inherit font from SharePoint page (organization's configured font)
-    font-family: inherit !important;
+    // Use page font from CSS custom property
+    font-family: var(--page-font-family, inherit) !important;
   }
 
   .eventNotes {
     // Use theme token for secondary text color
     color: $ms-color-neutralSecondary;
     font-style: italic;
-    // Inherit font from SharePoint page (organization's configured font)
-    font-family: inherit !important;
+    // Use page font from CSS custom property
+    font-family: var(--page-font-family, inherit) !important;
   }
 
   .typeBadge {
@@ -141,8 +147,8 @@
     color: $ms-color-neutralSecondary;
     font-size: 11px;
     line-height: 1.4;
-    // Inherit font from SharePoint page (organization's configured font)
-    font-family: inherit !important;
+    // Use page font from CSS custom property
+    font-family: var(--page-font-family, inherit) !important;
   }
 }
 
