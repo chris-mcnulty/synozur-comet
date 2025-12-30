@@ -3,9 +3,10 @@
 .holidaysBirthdays {
   overflow: hidden;
   padding: 20px;
-  // Use CSS custom property set by JavaScript, or inherit from SharePoint page
-  // This ensures we get the actual page font (Avenir, Segoe, etc.)
-  font-family: var(--page-font-family, inherit) !important;
+  // Use SharePoint Brand Center body font CSS variables
+  // Falls back to base font if custom fonts are not set
+  // This ensures we properly inherit custom font packages from SharePoint
+  font-family: var(--fontFamilyCustomFont100, var(--fontFamilyBase, inherit)) !important;
   
   // Override Fluent UI component default fonts with !important
   // Exclude icon elements - they need to use Fabric MDL2 icon font
@@ -15,7 +16,7 @@
   :global(.ms-Button-label),
   :global(.ms-Stack),
   :global(.ms-StackItem) {
-    font-family: var(--page-font-family, inherit) !important;
+    font-family: var(--fontFamilyCustomFont100, var(--fontFamilyBase, inherit)) !important;
   }
   
   // Icon elements must use Fabric MDL2 icon font - override any page font
@@ -48,15 +49,15 @@
   :global(div):not(:global(.ms-Icon)),
   :global(p),
   :global(button):not(:global(.ms-IconButton)) {
-    font-family: var(--page-font-family, inherit) !important;
+    font-family: var(--fontFamilyCustomFont100, var(--fontFamilyBase, inherit)) !important;
   }
 
   .title {
     font-weight: 600;
     // Use theme token for primary text color
     color: $ms-color-neutralPrimary;
-    // Use page font from CSS custom property
-    font-family: var(--page-font-family, inherit) !important;
+    // Use SharePoint brand fonts for body text
+    font-family: var(--fontFamilyCustomFont100, var(--fontFamilyBase, inherit)) !important;
   }
 
   .emptyState {
@@ -74,8 +75,8 @@
     // Use theme light color for border
     border-bottom: 2px solid $ms-color-themeLight;
     padding-bottom: 8px;
-    // Use page font from CSS custom property
-    font-family: var(--page-font-family, inherit) !important;
+    // Use SharePoint brand fonts for headlines
+    font-family: var(--fontFamilyCustomFont1000, var(--fontFamilyBase, inherit)) !important;
   }
 
   .eventItem {
@@ -103,8 +104,8 @@
     // Use theme token for text color
     color: $ms-color-neutralPrimary;
     min-width: 100px;
-    // Use page font from CSS custom property
-    font-family: var(--page-font-family, inherit) !important;
+    // Use SharePoint brand fonts for body text
+    font-family: var(--fontFamilyCustomFont100, var(--fontFamilyBase, inherit)) !important;
   }
 
   .eventTitle {
@@ -112,16 +113,16 @@
     // Use theme token for text color
     color: $ms-color-neutralPrimary;
     flex-grow: 1;
-    // Use page font from CSS custom property
-    font-family: var(--page-font-family, inherit) !important;
+    // Use SharePoint brand fonts for body text
+    font-family: var(--fontFamilyCustomFont100, var(--fontFamilyBase, inherit)) !important;
   }
 
   .eventNotes {
     // Use theme token for secondary text color
     color: $ms-color-neutralSecondary;
     font-style: italic;
-    // Use page font from CSS custom property
-    font-family: var(--page-font-family, inherit) !important;
+    // Use SharePoint brand fonts for body text
+    font-family: var(--fontFamilyCustomFont100, var(--fontFamilyBase, inherit)) !important;
   }
 
   .typeBadge {
@@ -161,8 +162,8 @@
     color: $ms-color-neutralSecondary;
     font-size: 11px;
     line-height: 1.4;
-    // Use page font from CSS custom property
-    font-family: var(--page-font-family, inherit) !important;
+    // Use SharePoint brand fonts for body text
+    font-family: var(--fontFamilyCustomFont100, var(--fontFamilyBase, inherit)) !important;
   }
 
   .toggleButton {
