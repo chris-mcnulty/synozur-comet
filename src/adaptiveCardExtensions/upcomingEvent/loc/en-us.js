@@ -1,0 +1,30 @@
+define([], function() {
+  return {
+    "PropertyPaneDescription": "Configure the Upcoming Event card settings",
+    "BasicGroupName": "Settings",
+    "DisplayModeFieldLabel": "Display Mode",
+    "DisplayModeHoliday": "Holidays",
+    "DisplayModeBirthday": "Birthdays",
+    "ListTitleFieldLabel": "List Name",
+    "ShowDaysUntilFieldLabel": "Show days countdown",
+    "ShowBrandingFieldLabel": "Show branding footer",
+    "BirthdayCountFieldLabel": "Birthdays to show in detail view",
+    "BirthdaySettingsGroupName": "Birthday Settings",
+    "Title": "Upcoming Event",
+    "SubTitle": "Card",
+    "PrimaryText": "Upcoming Event",
+    "Description": "Shows the next upcoming holiday or birthday",
+    "QuickViewButton": "View Details",
+    "NoEventsMessage": "No upcoming events",
+    "LoadingMessage": "Loading...",
+    "ErrorMessage": "Error loading events",
+    "DaysUntilToday": "Today",
+    "DaysUntilTomorrow": "Tomorrow",
+    "DaysUntilFormat": "in {0} days",
+    "HolidaysTitle": "Holidays",
+    "BirthdaysTitle": "Upcoming Birthdays",
+    "PreviousYear": "Previous Year",
+    "NextYear": "Next Year",
+    "CompanyName": "Synozur"
+  }
+});

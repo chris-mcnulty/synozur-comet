@@ -1,9 +1,10 @@
 # Holidays & Birthdays Web Part
 
-An SPFx React web part for SharePoint Online that displays upcoming holidays and birthdays from a SharePoint list. Features include annual recurrence for birthdays and fixed-date holidays, support for moving holidays (like Labor Day), and expandable views (30-day default, 365-day expanded).
+An SPFx solution for SharePoint Online that displays upcoming holidays and birthdays from a SharePoint list. This package includes both a **Web Part** for page content and **Adaptive Card Extensions (ACEs)** for Viva Connections dashboards.
 
 ## Features
 
+### Web Part Features
 - **Automatic List Provisioning**: Creates the required SharePoint list and fields automatically on first run (idempotent)
 - **SharePoint Brand Fonts Support**: Automatically inherits custom fonts from SharePoint Brand Center font packages
 - **Recurrence Support**: 
@@ -15,6 +16,15 @@ An SPFx React web part for SharePoint Online that displays upcoming holidays and
   - Grouped by month
   - Optional images and type badges
 - **User-Friendly UI**: Built with Fluent UI, responsive design, empty states, and error handling
+
+### Adaptive Card Extension (ACE) Features
+- **Viva Connections Dashboard Integration**: Add cards to your Connections dashboard
+- **Configurable Display Mode**: Switch between Holiday or Birthday mode per card
+- **Small and Medium Card Sizes**: Support for both dashboard card sizes
+- **Holiday Quick View**: Shows all holidays for the year with year navigation (previous/next year)
+- **Birthday Quick View**: Shows the next N upcoming birthdays (configurable, default: 5)
+- **Branding Support**: Optional Synozur branding footer (text fallback, image slot for custom logo)
+- **Days Until Countdown**: Optional display of days until the next event
 
 ## Prerequisites
 
@@ -61,6 +71,27 @@ An SPFx React web part for SharePoint Online that displays upcoming holidays and
    - **Show Images**: Toggle to show/hide event images
    - **Show Type Badges**: Toggle to show/hide event type badges
    - **Allow List Provisioning**: Enable automatic list creation (default: true)
+
+### Add ACE to Viva Connections Dashboard
+
+1. Navigate to your Viva Connections Dashboard
+2. Click **Edit** to enter edit mode
+3. Click **+ Add a card**
+4. Find **"Upcoming Event"** in the card picker
+5. Add it to your dashboard
+6. Configure card properties:
+   - **Display Mode**: Choose between "Holidays" or "Birthdays"
+   - **List Name**: Name of the SharePoint list (default: "HolidaysAndBirthdays")
+   - **Show days countdown**: Toggle to show "in X days" text
+   - **Show branding footer**: Toggle to show Synozur branding
+   - **Birthdays to show**: (Birthday mode only) Number of birthdays in Quick View (3-10)
+7. You can add multiple cards with different configurations (e.g., one for holidays, one for birthdays)
+
+#### ACE Card Behavior
+
+- **Small/Medium Card View**: Shows the next upcoming event with an image, type label, and optional countdown
+- **Holiday Quick View**: Click the card to see all holidays for the year with navigation to previous/next year
+- **Birthday Quick View**: Click the card to see the next N upcoming birthdays
 
 ## List Schema
 
