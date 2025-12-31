@@ -13,9 +13,7 @@ import {
   PrimaryButton,
   getTheme
 } from 'office-ui-fabric-react';
-import { IEventOccurrence } from '../services/RecurrenceCalculator';
-import { DataService } from '../services/DataService';
-import { ListProvisioningService } from '../services/ListProvisioningService';
+import { IEventOccurrence, DataService, ListProvisioningService } from '../../../shared/services';
 import { sp } from '@pnp/sp';
 import "@pnp/sp/webs";
 import "@pnp/sp/lists";
