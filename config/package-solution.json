@@ -3,7 +3,7 @@
   "solution": {
     "name": "Synozur Holidays and Birthdays",
     "id": "30a6bd4c-0756-4062-9ba1-6c058d75fcbe",
-    "version": "2.0.1.0",
+    "version": "2.0.2.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
