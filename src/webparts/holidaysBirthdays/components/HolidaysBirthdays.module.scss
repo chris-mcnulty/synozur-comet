@@ -1,8 +1,8 @@
 @import '~office-ui-fabric-react/dist/sass/References.scss';
 
 .holidaysBirthdays {
-  overflow: hidden;
   padding: 20px;
+  // Allow content to flow naturally, only constrain when needed
   // Use SharePoint Brand Center body font CSS variables
   // Falls back to base font if custom fonts are not set
   // This ensures we properly inherit custom font packages from SharePoint
@@ -168,7 +168,10 @@
 
   .toggleButton {
     // Ensure icon font is used for the toggle button with highest specificity
-    // Apply directly to the button and all nested elements
+    // Target the button element itself
+    font-family: "FabricMDL2Icons" !important;
+    
+    // Target all possible icon elements within the button
     &,
     & *,
     &::before,
@@ -177,15 +180,29 @@
     & *::after,
     :global(.ms-Icon),
     :global(.ms-Icon::before),
+    :global(.ms-Icon::after),
     :global(i),
     :global(i::before),
+    :global(i::after),
     :global(span),
     :global(span::before),
+    :global(span::after),
     :global([data-icon-name]),
-    :global([data-icon-name]::before) {
+    :global([data-icon-name]::before),
+    :global([data-icon-name]::after),
+    :global(.ms-Button-icon),
+    :global(.ms-Button-icon::before),
+    :global(.ms-Button-icon::after) {
       font-family: "FabricMDL2Icons" !important;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      // Ensure the icon displays correctly
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
     }
   }
 
@@ -199,28 +216,32 @@
     max-height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-right: 8px;
+    // Reserve space for scrollbar to prevent layout shift (modern browsers)
+    scrollbar-gutter: stable;
     
-    // Firefox scrollbar styling
+    // Firefox scrollbar styling (thin scrollbar that doesn't take much space)
     scrollbar-width: thin;
-    scrollbar-color: $ms-color-neutralTertiary $ms-color-neutralLighter;
+    scrollbar-color: $ms-color-neutralTertiary transparent;
     
-    // Customize scrollbar for better appearance (WebKit browsers)
+    // Customize scrollbar for better appearance (WebKit browsers - Chrome, Edge, Safari)
     &::-webkit-scrollbar {
       width: 8px;
     }
     
     &::-webkit-scrollbar-track {
-      background: $ms-color-neutralLighter;
-      border-radius: 4px;
+      background: transparent;
+      margin: 4px 0;
     }
     
     &::-webkit-scrollbar-thumb {
       background: $ms-color-neutralTertiary;
       border-radius: 4px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
       
       &:hover {
         background: $ms-color-neutralSecondary;
+        background-clip: padding-box;
       }
     }
   }

@@ -240,6 +240,12 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
             title={isExpanded ? 'Show fewer events' : 'Show more events'}
             onClick={() => setIsExpanded(!isExpanded)}
             className={styles.toggleButton}
+            styles={{
+              icon: {
+                fontFamily: '"FabricMDL2Icons"',
+                fontSize: '16px'
+              }
+            }}
           />
         </Stack>
 

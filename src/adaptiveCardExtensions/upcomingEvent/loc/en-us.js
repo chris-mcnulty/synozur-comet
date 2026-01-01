@@ -1,6 +1,6 @@
 define([], function() {
   return {
-    "PropertyPaneDescription": "Configure the Upcoming Event card settings",
+    "PropertyPaneDescription": "Configure the Holidays & Birthdays card settings",
     "BasicGroupName": "Settings",
     "DisplayModeFieldLabel": "Display Mode",
     "DisplayModeHoliday": "Holidays",
@@ -10,10 +10,10 @@ define([], function() {
     "ShowBrandingFieldLabel": "Show branding footer",
     "BirthdayCountFieldLabel": "Birthdays to show in detail view",
     "BirthdaySettingsGroupName": "Birthday Settings",
-    "Title": "Upcoming Event",
+    "Title": "Holidays & Birthdays",
     "SubTitle": "Card",
-    "PrimaryText": "Upcoming Event",
-    "Description": "Shows the next upcoming holiday or birthday",
+    "PrimaryText": "Holidays & Birthdays",
+    "Description": "Shows the next upcoming holiday or birthday. Published by The Synozur Alliance LLC.",
     "QuickViewButton": "View Details",
     "NoEventsMessage": "No upcoming events",
     "LoadingMessage": "Loading...",

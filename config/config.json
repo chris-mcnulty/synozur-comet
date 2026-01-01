@@ -9,10 +9,19 @@
           "manifest": "./src/webparts/holidaysBirthdays/HolidaysBirthdaysWebPart.manifest.json"
         }
       ]
+    },
+    "upcoming-event-ace": {
+      "components": [
+        {
+          "entrypoint": "./lib/adaptiveCardExtensions/upcomingEvent/UpcomingEventAdaptiveCardExtension.js",
+          "manifest": "./src/adaptiveCardExtensions/upcomingEvent/UpcomingEventAdaptiveCardExtension.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "HolidaysBirthdaysWebPartStrings": "lib/webparts/holidaysBirthdays/loc/{locale}.js"
+    "HolidaysBirthdaysWebPartStrings": "lib/webparts/holidaysBirthdays/loc/{locale}.js",
+    "UpcomingEventAdaptiveCardExtensionStrings": "lib/adaptiveCardExtensions/upcomingEvent/loc/{locale}.js"
   }
 }

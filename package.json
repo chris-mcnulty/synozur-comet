@@ -1,6 +1,6 @@
 {
   "name": "holidays-birthdays-webpart",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "main": "lib/index.js",
   "engines": {
@@ -12,6 +12,7 @@
     "test": "gulp test"
   },
   "dependencies": {
+    "@microsoft/load-themed-styles": "^2.1.22",
     "@microsoft/sp-adaptive-card-extension-base": "^1.18.2",
     "@microsoft/sp-core-library": "1.18.2",
     "@microsoft/sp-lodash-subset": "1.18.2",
