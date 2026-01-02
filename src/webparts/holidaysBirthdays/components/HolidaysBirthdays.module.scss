@@ -172,27 +172,35 @@
     font-family: "FabricMDL2Icons" !important;
     
     // Target all possible icon elements within the button
+    // Use :global() to target Fluent UI classes that are outside our module scope
     &,
     & *,
     &::before,
     &::after,
     & *::before,
-    & *::after,
+    & *::after {
+      font-family: "FabricMDL2Icons" !important;
+    }
+    
+    // Specifically target Fluent UI icon classes
     :global(.ms-Icon),
     :global(.ms-Icon::before),
     :global(.ms-Icon::after),
-    :global(i),
-    :global(i::before),
-    :global(i::after),
-    :global(span),
-    :global(span::before),
-    :global(span::after),
-    :global([data-icon-name]),
-    :global([data-icon-name]::before),
-    :global([data-icon-name]::after),
+    :global(.ms-IconButton-icon),
+    :global(.ms-IconButton-icon::before),
+    :global(.ms-IconButton-icon::after),
     :global(.ms-Button-icon),
     :global(.ms-Button-icon::before),
-    :global(.ms-Button-icon::after) {
+    :global(.ms-Button-icon::after),
+    :global(i[data-icon-name]),
+    :global(i[data-icon-name]::before),
+    :global(i[data-icon-name]::after),
+    :global(span[data-icon-name]),
+    :global(span[data-icon-name]::before),
+    :global(span[data-icon-name]::after),
+    :global([data-icon-name]),
+    :global([data-icon-name]::before),
+    :global([data-icon-name]::after) {
       font-family: "FabricMDL2Icons" !important;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -203,6 +211,7 @@
       font-variant: normal;
       text-transform: none;
       line-height: 1;
+      display: inline-block;
     }
   }
 
@@ -216,32 +225,32 @@
     max-height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
+    // Add padding to prevent content from touching scrollbar
+    padding-right: 8px;
     // Reserve space for scrollbar to prevent layout shift (modern browsers)
     scrollbar-gutter: stable;
     
     // Firefox scrollbar styling (thin scrollbar that doesn't take much space)
     scrollbar-width: thin;
-    scrollbar-color: $ms-color-neutralTertiary transparent;
+    scrollbar-color: transparent transparent; // Make scrollbar invisible by default
     
     // Customize scrollbar for better appearance (WebKit browsers - Chrome, Edge, Safari)
     &::-webkit-scrollbar {
       width: 8px;
+      background-color: transparent; // Make track transparent
     }
     
     &::-webkit-scrollbar-track {
-      background: transparent;
-      margin: 4px 0;
+      background: transparent; // Make track transparent
+      border-radius: 4px;
     }
     
     &::-webkit-scrollbar-thumb {
-      background: $ms-color-neutralTertiary;
+      background: rgba($ms-color-neutralTertiary, 0.5); // Semi-transparent thumb
       border-radius: 4px;
-      border: 2px solid transparent;
-      background-clip: padding-box;
       
       &:hover {
-        background: $ms-color-neutralSecondary;
-        background-clip: padding-box;
+        background: $ms-color-neutralSecondary; // Darker on hover
       }
     }
   }

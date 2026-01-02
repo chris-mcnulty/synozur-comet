@@ -242,8 +242,15 @@ const HolidaysBirthdays: React.FunctionComponent<IHolidaysBirthdaysProps> = (pro
             className={styles.toggleButton}
             styles={{
               icon: {
-                fontFamily: '"FabricMDL2Icons"',
-                fontSize: '16px'
+                fontFamily: 'FabricMDL2Icons',
+                fontStyle: 'normal',
+                fontWeight: 'normal',
+                speak: 'none',
+                display: 'inline-block',
+                verticalAlign: 'middle'
+              },
+              root: {
+                fontFamily: 'FabricMDL2Icons'
               }
             }}
           />
