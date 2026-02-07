@@ -47,7 +47,7 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
     this.quickViewNavigator.register(HOLIDAY_QUICK_VIEW_REGISTRY_ID, () => new HolidayQuickView());
     this.quickViewNavigator.register(BIRTHDAY_QUICK_VIEW_REGISTRY_ID, () => new BirthdayQuickView());
 
-    // Initialize PnP first and wait for it to complete
+    // Initialize PnP configuration
     sp.setup({
       spfxContext: this.context as any
     });
