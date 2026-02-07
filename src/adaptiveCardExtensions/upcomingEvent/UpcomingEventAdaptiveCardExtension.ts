@@ -2,12 +2,15 @@ import { IPropertyPaneConfiguration, PropertyPaneDropdown, PropertyPaneSlider, P
 import { BaseAdaptiveCardExtension } from '@microsoft/sp-adaptive-card-extension-base';
 import { sp } from '@pnp/sp';
 import "@pnp/sp/webs";
+import "@pnp/sp/lists";
+import "@pnp/sp/items";
+import "@pnp/sp/fields";
 
 import { CardView } from './cardView/CardView';
 import { HolidayQuickView } from './quickView/HolidayQuickView';
 import { BirthdayQuickView } from './quickView/BirthdayQuickView';
 import { IUpcomingEventAdaptiveCardExtensionProps, IUpcomingEventAdaptiveCardExtensionState } from './IUpcomingEventAdaptiveCardExtensionProps';
-import { DataService, IEventOccurrence } from '../../shared/services';
+import { DataService, IEventOccurrence, ListProvisioningService } from '../../shared/services';
 import * as strings from 'UpcomingEventAdaptiveCardExtensionStrings';
 
 // Default images - using relative path from adaptiveCardExtensions/upcomingEvent to webparts/holidaysBirthdays/assets
@@ -26,7 +29,7 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
 > {
   private _dataService: DataService | null = null;
 
-  public onInit(): Promise<void> {
+  public async onInit(): Promise<void> {
     // Initialize state
     this.state = {
       nextEventTitle: '',
@@ -43,15 +46,47 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
     this.quickViewNavigator.register(HOLIDAY_QUICK_VIEW_REGISTRY_ID, () => new HolidayQuickView());
     this.quickViewNavigator.register(BIRTHDAY_QUICK_VIEW_REGISTRY_ID, () => new BirthdayQuickView());
 
-    // Initialize PnP
+    // Initialize PnP first and wait for it to complete
     sp.setup({
       spfxContext: this.context as any
     });
 
-    // Initialize data service and load data
-    this._dataService = new DataService(this.properties.listTitle || 'HolidaysAndBirthdays');
+    // Ensure the list exists before attempting to load data
+    const listTitle = this.properties.listTitle || 'HolidaysAndBirthdays';
+    const provisioningService = new ListProvisioningService(listTitle);
     
-    return this._loadData();
+    try {
+      const provisioningResult = await provisioningService.ensureListExists();
+      
+      if (!provisioningResult.success) {
+        console.error('Failed to provision list:', provisioningResult.error);
+        this.setState({
+          nextEventTitle: 'List Not Found',
+          nextEventDate: null,
+          nextEventImageUrl: this._getDefaultImage(),
+          daysUntil: 0,
+          isLoading: false,
+          error: `Unable to access or create the list "${listTitle}". ${provisioningResult.error || 'Please ensure the list exists and you have permissions.'}`
+        });
+        return;
+      }
+    } catch (provisioningError) {
+      console.error('Error during list provisioning:', provisioningError);
+      this.setState({
+        nextEventTitle: 'Setup Error',
+        nextEventDate: null,
+        nextEventImageUrl: this._getDefaultImage(),
+        daysUntil: 0,
+        isLoading: false,
+        error: provisioningError instanceof Error ? provisioningError.message : 'Failed to initialize list'
+      });
+      return;
+    }
+
+    // Initialize data service and load data
+    this._dataService = new DataService(listTitle);
+    
+    await this._loadData();
   }
 
   public get iconProperty(): string {
@@ -120,11 +155,44 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
     };
   }
 
-  protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
+  protected async onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): Promise<void> {
     if (propertyPath === 'listTitle' || propertyPath === 'displayMode') {
+      const listTitle = this.properties.listTitle || 'HolidaysAndBirthdays';
+      
+      // Ensure the list exists before attempting to load data
+      const provisioningService = new ListProvisioningService(listTitle);
+      
+      try {
+        const provisioningResult = await provisioningService.ensureListExists();
+        
+        if (!provisioningResult.success) {
+          console.error('Failed to provision list:', provisioningResult.error);
+          this.setState({
+            nextEventTitle: 'List Not Found',
+            nextEventDate: null,
+            nextEventImageUrl: this._getDefaultImage(),
+            daysUntil: 0,
+            isLoading: false,
+            error: `Unable to access or create the list "${listTitle}". ${provisioningResult.error || 'Please ensure the list exists and you have permissions.'}`
+          });
+          return;
+        }
+      } catch (provisioningError) {
+        console.error('Error during list provisioning:', provisioningError);
+        this.setState({
+          nextEventTitle: 'Setup Error',
+          nextEventDate: null,
+          nextEventImageUrl: this._getDefaultImage(),
+          daysUntil: 0,
+          isLoading: false,
+          error: provisioningError instanceof Error ? provisioningError.message : 'Failed to initialize list'
+        });
+        return;
+      }
+      
       // Reinitialize data service if list title changes
-      this._dataService = new DataService(this.properties.listTitle || 'HolidaysAndBirthdays');
-      this._loadData();
+      this._dataService = new DataService(listTitle);
+      await this._loadData();
     }
   }
 
