@@ -86,7 +86,8 @@ export class CardView extends BaseImageCardView<
     return {
       primaryText: primaryText,
       imageUrl: nextEventImageUrl,
-      title: displayMode === 'Birthday' ? strings.BirthdaysTitle : strings.HolidaysTitle
+      title: displayMode === 'Birthday' ? strings.BirthdaysTitle : strings.HolidaysTitle,
+      secondaryText: secondaryText
     };
   }
 
