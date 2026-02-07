@@ -22,6 +22,7 @@ const defaultIndependenceImage = require('../../webparts/holidaysBirthdays/asset
 export const CARD_VIEW_REGISTRY_ID: string = 'UpcomingEvent_CARD_VIEW';
 export const HOLIDAY_QUICK_VIEW_REGISTRY_ID: string = 'UpcomingEvent_HOLIDAY_QUICK_VIEW';
 export const BIRTHDAY_QUICK_VIEW_REGISTRY_ID: string = 'UpcomingEvent_BIRTHDAY_QUICK_VIEW';
+export const DEFAULT_LIST_TITLE: string = 'HolidaysAndBirthdays';
 
 export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCardExtension<
   IUpcomingEventAdaptiveCardExtensionProps,
@@ -52,7 +53,7 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
     });
 
     // Ensure the list exists before attempting to load data
-    const listTitle = this.properties.listTitle || 'HolidaysAndBirthdays';
+    const listTitle = this.properties.listTitle || DEFAULT_LIST_TITLE;
     const provisioningService = new ListProvisioningService(listTitle);
     
     try {
@@ -60,26 +61,18 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
       
       if (!provisioningResult.success) {
         console.error('Failed to provision list:', provisioningResult.error);
-        this.setState({
-          nextEventTitle: 'List Not Found',
-          nextEventDate: null,
-          nextEventImageUrl: this._getDefaultImage(),
-          daysUntil: 0,
-          isLoading: false,
-          error: `Unable to access or create the list "${listTitle}". ${provisioningResult.error || 'Please ensure the list exists and you have permissions.'}`
-        });
+        this._setErrorState(
+          'List Not Found',
+          `Unable to access or create the list "${listTitle}". ${provisioningResult.error || 'Please ensure the list exists and you have permissions.'}`
+        );
         return;
       }
     } catch (provisioningError) {
       console.error('Error during list provisioning:', provisioningError);
-      this.setState({
-        nextEventTitle: 'Setup Error',
-        nextEventDate: null,
-        nextEventImageUrl: this._getDefaultImage(),
-        daysUntil: 0,
-        isLoading: false,
-        error: provisioningError instanceof Error ? provisioningError.message : 'Failed to initialize list'
-      });
+      this._setErrorState(
+        'Setup Error',
+        provisioningError instanceof Error ? provisioningError.message : 'Failed to initialize list'
+      );
       return;
     }
 
@@ -124,7 +117,7 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
                 }),
                 PropertyPaneTextField('listTitle', {
                   label: strings.ListTitleFieldLabel,
-                  value: this.properties.listTitle || 'HolidaysAndBirthdays'
+                  value: this.properties.listTitle || DEFAULT_LIST_TITLE
                 }),
                 PropertyPaneToggle('showDaysUntil', {
                   label: strings.ShowDaysUntilFieldLabel,
@@ -157,7 +150,7 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
 
   protected async onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): Promise<void> {
     if (propertyPath === 'listTitle' || propertyPath === 'displayMode') {
-      const listTitle = this.properties.listTitle || 'HolidaysAndBirthdays';
+      const listTitle = this.properties.listTitle || DEFAULT_LIST_TITLE;
       
       // Ensure the list exists before attempting to load data
       const provisioningService = new ListProvisioningService(listTitle);
@@ -167,26 +160,18 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
         
         if (!provisioningResult.success) {
           console.error('Failed to provision list:', provisioningResult.error);
-          this.setState({
-            nextEventTitle: 'List Not Found',
-            nextEventDate: null,
-            nextEventImageUrl: this._getDefaultImage(),
-            daysUntil: 0,
-            isLoading: false,
-            error: `Unable to access or create the list "${listTitle}". ${provisioningResult.error || 'Please ensure the list exists and you have permissions.'}`
-          });
+          this._setErrorState(
+            'List Not Found',
+            `Unable to access or create the list "${listTitle}". ${provisioningResult.error || 'Please ensure the list exists and you have permissions.'}`
+          );
           return;
         }
       } catch (provisioningError) {
         console.error('Error during list provisioning:', provisioningError);
-        this.setState({
-          nextEventTitle: 'Setup Error',
-          nextEventDate: null,
-          nextEventImageUrl: this._getDefaultImage(),
-          daysUntil: 0,
-          isLoading: false,
-          error: provisioningError instanceof Error ? provisioningError.message : 'Failed to initialize list'
-        });
+        this._setErrorState(
+          'Setup Error',
+          provisioningError instanceof Error ? provisioningError.message : 'Failed to initialize list'
+        );
         return;
       }
       
@@ -237,15 +222,25 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
       }
     } catch (error) {
       console.error('Error loading ACE data:', error);
-      this.setState({
-        nextEventTitle: strings.ErrorMessage,
-        nextEventDate: null,
-        nextEventImageUrl: this._getDefaultImage(),
-        daysUntil: 0,
-        isLoading: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
-      });
+      this._setErrorState(
+        strings.ErrorMessage,
+        error instanceof Error ? error.message : 'Unknown error'
+      );
     }
+  }
+
+  /**
+   * Set error state with consistent structure
+   */
+  private _setErrorState(title: string, errorMessage: string): void {
+    this.setState({
+      nextEventTitle: title,
+      nextEventDate: null,
+      nextEventImageUrl: this._getDefaultImage(),
+      daysUntil: 0,
+      isLoading: false,
+      error: errorMessage
+    });
   }
 
   /**
