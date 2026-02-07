@@ -19,12 +19,14 @@ An SPFx solution for SharePoint Online that displays upcoming holidays and birth
 
 ### Adaptive Card Extension (ACE) Features
 - **Viva Connections Dashboard Integration**: Add cards to your Connections dashboard
+- **Automatic List Provisioning**: Creates the required SharePoint list and fields automatically if they don't exist (same as web part)
 - **Configurable Display Mode**: Switch between Holiday or Birthday mode per card
 - **Small and Medium Card Sizes**: Support for both dashboard card sizes
 - **Holiday Quick View**: Shows all holidays for the year with year navigation (previous/next year)
 - **Birthday Quick View**: Shows the next N upcoming birthdays (configurable, default: 5)
 - **Branding Support**: Optional Synozur branding footer (text fallback, image slot for custom logo)
 - **Days Until Countdown**: Optional display of days until the next event
+- **Robust Error Handling**: Clear error messages if list provisioning fails or permissions are insufficient
 
 ## Prerequisites
 
@@ -149,11 +151,28 @@ If no custom fonts are configured, the web part falls back to SharePoint's defau
 
 ## Permissions Required
 
+### For Web Parts
 - **To create the list automatically**: User must have "Manage Lists" permission (typically Site Members or higher)
 - **To view events**: User must have "Read" permission on the list (typically all site users)
 - **To add/edit events**: User must have "Contribute" permission on the list
 
+### For Adaptive Card Extensions (ACEs)
+- **First-time setup**: User must have "Manage Lists" permission to allow automatic list provisioning
+- **To view events**: User must have "Read" permission on the list (typically all site users)
+- **To add/edit events**: User must have "Contribute" permission on the list
+- **Note**: If automatic provisioning fails, manually create the list following the List Schema section
+
 ## Troubleshooting
+
+### Adaptive Cards Not Showing in Dashboard
+
+If your adaptive card is not displaying in the Viva Connections dashboard:
+
+1. **Check list provisioning**: The ACE automatically creates the list if it doesn't exist. Check browser console for errors
+2. **Verify permissions**: Ensure you have "Manage Lists" permission on the site to create the list
+3. **Manual list creation**: If automatic provisioning fails, create the list manually following the List Schema section
+4. **Check the list name**: Ensure the list title in ACE settings matches the list name (default: "HolidaysAndBirthdays")
+5. **Review error messages**: The ACE will display error messages on the card if setup fails
 
 ### List Not Found Error
 
