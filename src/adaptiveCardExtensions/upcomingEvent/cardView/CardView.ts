@@ -69,25 +69,24 @@ export class CardView extends BaseImageCardView<
       }
     }
 
-    // Build primary text with type label
+    // Build primary text with type label, date, and days until
     let primaryText = isLoading ? strings.LoadingMessage : `${typeLabel}: ${nextEventTitle}`;
-
-    // Build secondary text
-    let secondaryText = dateText;
-    if (daysUntilText) {
-      secondaryText = secondaryText ? `${secondaryText} • ${daysUntilText}` : daysUntilText;
+    
+    // Add date and days until to primary text
+    if (dateText || daysUntilText) {
+      const dateInfo = [dateText, daysUntilText].filter(Boolean).join(' • ');
+      primaryText = `${primaryText}\n${dateInfo}`;
     }
 
     // Add branding if enabled
     if (showBranding) {
-      secondaryText = secondaryText ? `${secondaryText}\n${strings.CompanyName}` : strings.CompanyName;
+      primaryText = `${primaryText}\n${strings.CompanyName}`;
     }
 
     return {
       primaryText: primaryText,
       imageUrl: nextEventImageUrl,
-      title: displayMode === 'Birthday' ? strings.BirthdaysTitle : strings.HolidaysTitle,
-      secondaryText: secondaryText
+      title: displayMode === 'Birthday' ? strings.BirthdaysTitle : strings.HolidaysTitle
     };
   }
 
