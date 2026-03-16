@@ -196,26 +196,30 @@ export class ListProvisioningService {
 
   private async seedDefaultItems(list: any): Promise<void> {
     try {
-      // Check if the list already has items
-      const existingItems = await list.items.top(1).select('Id')();
-      const hasItems = Array.isArray(existingItems) ? existingItems.length > 0 : (existingItems?.value?.length ?? 0) > 0;
-
-      if (hasItems) {
+      // Check if the list already has items (PnP may return array or { value: array })
+      const raw = await list.items.top(1).select('Id')();
+      const items = Array.isArray(raw) ? raw : raw?.value ?? [];
+      if (items.length > 0) {
         return;
       }
 
       for (const ev of this._defaultEvents) {
         try {
-          await list.items.add({
+          // SharePoint REST expects DateTime as ISO string; DateOnly works with YYYY-MM-DD
+          const eventDateStr = ev.EventDate.toISOString().split('T')[0];
+          const payload: Record<string, unknown> = {
             Title: ev.Title,
-            EventDate: ev.EventDate,
+            EventDate: eventDateStr,
             EventType: ev.EventType,
             IsAnnualRecurrence: ev.IsAnnualRecurrence,
-            RecurrenceRule: ev.RecurrenceRule,
-            ImageUrl: ev.ImageUrl,
+            RecurrenceRule: ev.RecurrenceRule || null,
             Active: ev.Active
-          });
-          // Small delay between item creations to avoid throttling
+          };
+          // Omit empty URL to avoid REST validation issues
+          if (ev.ImageUrl) {
+            payload.ImageUrl = ev.ImageUrl;
+          }
+          await list.items.add(payload);
           await new Promise(resolve => setTimeout(resolve, 100));
         } catch (itemError: any) {
           console.error('Error seeding default item:', ev.Title, itemError);
