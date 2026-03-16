@@ -235,7 +235,7 @@ export class RecurrenceCalculator {
 
   /**
    * Find the nth occurrence of a weekday in a given month/year
-   * e.g., 1st Monday of September 2024, or last Monday of May (nth = 5)
+   * e.g., 1st Monday of September 2026, or last Monday of May (nth = 5)
    */
   private static findNthWeekdayInMonth(
     year: number,

@@ -115,7 +115,7 @@ The web part uses a SharePoint list with the following fields:
 
 1. Create a new item in the list
 2. Set **Title**: e.g., "New Year's Day"
-3. Set **EventDate**: e.g., January 1, 2024 (the year doesn't matter for annual recurrence)
+3. Set **EventDate**: e.g., January 1, 2026 (the year doesn't matter for annual recurrence)
 4. Set **EventType**: "Holiday" or "Birthday"
 5. Set **IsAnnualRecurrence**: Yes (default)
 6. Leave **RecurrenceRule** empty
@@ -124,7 +124,7 @@ The web part uses a SharePoint list with the following fields:
 
 1. Create a new item
 2. Set **Title**: "Labor Day"
-3. Set **EventDate**: Any date in September (e.g., September 1, 2024)
+3. Set **EventDate**: Any date in September (e.g., September 1, 2026)
 4. Set **EventType**: "Holiday"
 5. Set **IsAnnualRecurrence**: Yes
 6. Set **RecurrenceRule**: `MONTHLY_BY_NTH_WEEKDAY:09:MONDAY:1`
