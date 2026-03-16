@@ -117,7 +117,7 @@ The web part uses these fields:
 ### Fixed Holiday (New Year's Day)
 
 - **Title**: New Year's Day
-- **EventDate**: 2024-01-01 (any year works)
+- **EventDate**: 2026-01-01 (any year works)
 - **EventType**: Holiday
 - **IsAnnualRecurrence**: Yes
 - **RecurrenceRule**: (leave empty)
@@ -125,7 +125,7 @@ The web part uses these fields:
 ### Moving Holiday (Labor Day - 1st Monday of September)
 
 - **Title**: Labor Day
-- **EventDate**: 2024-09-01 (any date in September)
+- **EventDate**: 2026-09-01 (any date in September)
 - **EventType**: Holiday
 - **IsAnnualRecurrence**: Yes
 - **RecurrenceRule**: `MONTHLY_BY_NTH_WEEKDAY:09:MONDAY:1`

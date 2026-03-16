@@ -203,16 +203,16 @@ Where:
 
 | Holiday | Date Pattern | RecurrenceRule | EventDate Example |
 |---------|-------------|----------------|-------------------|
-| **New Year's Day** | January 1 (Fixed) | *(leave empty)* | 2024-01-01 |
-| **Martin Luther King Jr. Day** | 3rd Monday in January | `MONTHLY_BY_NTH_WEEKDAY:01:MONDAY:3` | 2024-01-01 |
-| **Presidents' Day** | 3rd Monday in February | `MONTHLY_BY_NTH_WEEKDAY:02:MONDAY:3` | 2024-02-01 |
-| **Memorial Day** | Last Monday in May | `MONTHLY_BY_NTH_WEEKDAY:05:MONDAY:5` | 2024-05-01 |
-| **Independence Day** | July 4 (Fixed) | *(leave empty)* | 2024-07-04 |
-| **Labor Day** | 1st Monday in September | `MONTHLY_BY_NTH_WEEKDAY:09:MONDAY:1` | 2024-09-01 |
-| **Columbus Day** | 2nd Monday in October | `MONTHLY_BY_NTH_WEEKDAY:10:MONDAY:2` | 2024-10-01 |
-| **Veterans Day** | November 11 (Fixed) | *(leave empty)* | 2024-11-11 |
-| **Thanksgiving Day** | 4th Thursday in November | `MONTHLY_BY_NTH_WEEKDAY:11:THURSDAY:4` | 2024-11-01 |
-| **Christmas Day** | December 25 (Fixed) | *(leave empty)* | 2024-12-25 |
+| **New Year's Day** | January 1 (Fixed) | *(leave empty)* | 2026-01-01 |
+| **Martin Luther King Jr. Day** | 3rd Monday in January | `MONTHLY_BY_NTH_WEEKDAY:01:MONDAY:3` | 2026-01-01 |
+| **Presidents' Day** | 3rd Monday in February | `MONTHLY_BY_NTH_WEEKDAY:02:MONDAY:3` | 2026-02-01 |
+| **Memorial Day** | Last Monday in May | `MONTHLY_BY_NTH_WEEKDAY:05:MONDAY:5` | 2026-05-01 |
+| **Independence Day** | July 4 (Fixed) | *(leave empty)* | 2026-07-04 |
+| **Labor Day** | 1st Monday in September | `MONTHLY_BY_NTH_WEEKDAY:09:MONDAY:1` | 2026-09-01 |
+| **Columbus Day** | 2nd Monday in October | `MONTHLY_BY_NTH_WEEKDAY:10:MONDAY:2` | 2026-10-01 |
+| **Veterans Day** | November 11 (Fixed) | *(leave empty)* | 2026-11-11 |
+| **Thanksgiving Day** | 4th Thursday in November | `MONTHLY_BY_NTH_WEEKDAY:11:THURSDAY:4` | 2026-11-01 |
+| **Christmas Day** | December 25 (Fixed) | *(leave empty)* | 2026-12-25 |
 
 ### Step-by-Step: Adding a Moving Holiday
 
@@ -222,7 +222,7 @@ Where:
 2. Click **New** to add a new item
 3. Fill in:
    - **Title**: `Labor Day`
-   - **EventDate**: `2024-09-01` (any date in September works)
+   - **EventDate**: `2026-09-01` (any date in September works)
    - **EventType**: `Holiday`
    - **IsAnnualRecurrence**: `Yes`
    - **RecurrenceRule**: `MONTHLY_BY_NTH_WEEKDAY:09:MONDAY:1`
@@ -240,7 +240,7 @@ The web part will automatically calculate Labor Day for each year (always the 1s
 2. Click **New** to add a new item
 3. Fill in:
    - **Title**: `Independence Day`
-   - **EventDate**: `2024-07-04` (the actual date)
+   - **EventDate**: `2026-07-04` (the actual date)
    - **EventType**: `Holiday`
    - **IsAnnualRecurrence**: `Yes`
    - **RecurrenceRule**: *(leave empty)*
