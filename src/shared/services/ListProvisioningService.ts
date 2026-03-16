@@ -13,6 +13,100 @@ export interface IProvisioningResult {
 export class ListProvisioningService {
   private _listTitle: string;
 
+  // Default seed events for a newly provisioned list
+  private readonly _defaultEvents = [
+    {
+      Title: "New Year's Day",
+      EventDate: new Date('2026-01-01'),
+      EventType: 'Holiday',
+      IsAnnualRecurrence: true,
+      RecurrenceRule: '',
+      ImageUrl: '',
+      Active: true
+    },
+    {
+      Title: 'Martin Luther King Jr. Day',
+      EventDate: new Date('2026-01-19'),
+      EventType: 'Holiday',
+      IsAnnualRecurrence: true,
+      RecurrenceRule: '',
+      ImageUrl: '',
+      Active: true
+    },
+    {
+      Title: 'Presidents Day',
+      EventDate: new Date('2026-02-21'),
+      EventType: 'Holiday',
+      IsAnnualRecurrence: true,
+      RecurrenceRule: 'MONTHLY_BY_NTH_WEEKDAY:02:MONDAY:3',
+      ImageUrl: '',
+      Active: true
+    },
+    {
+      Title: 'Memorial Day',
+      EventDate: new Date('2026-05-26'),
+      EventType: 'Holiday',
+      IsAnnualRecurrence: true,
+      RecurrenceRule: 'MONTHLY_BY_NTH_WEEKDAY:05:MONDAY:5',
+      ImageUrl: '',
+      Active: true
+    },
+    {
+      Title: 'Independence Day',
+      EventDate: new Date('2026-07-04'),
+      EventType: 'Holiday',
+      IsAnnualRecurrence: true,
+      RecurrenceRule: '',
+      ImageUrl: '',
+      Active: true
+    },
+    {
+      Title: 'Labor Day',
+      EventDate: new Date('2026-09-07'),
+      EventType: 'Holiday',
+      IsAnnualRecurrence: true,
+      RecurrenceRule: 'MONTHLY_BY_NTH_WEEKDAY:09:MONDAY:1',
+      ImageUrl: '',
+      Active: true
+    },
+    {
+      Title: "Indigenous People's Day",
+      EventDate: new Date('2026-10-12'),
+      EventType: 'Holiday',
+      IsAnnualRecurrence: true,
+      RecurrenceRule: 'MONTHLY_BY_NTH_WEEKDAY:10:MONDAY:2',
+      ImageUrl: '',
+      Active: true
+    },
+    {
+      Title: "Veterans' Day",
+      EventDate: new Date('2026-11-11'),
+      EventType: 'Holiday',
+      IsAnnualRecurrence: true,
+      RecurrenceRule: '',
+      ImageUrl: '',
+      Active: true
+    },
+    {
+      Title: 'Thanksgiving',
+      EventDate: new Date('2026-11-26'),
+      EventType: 'Holiday',
+      IsAnnualRecurrence: true,
+      RecurrenceRule: 'MONTHLY_BY_NTH_WEEKDAY:11:THURSDAY:4',
+      ImageUrl: '',
+      Active: true
+    },
+    {
+      Title: 'Christmas',
+      EventDate: new Date('2026-12-25'),
+      EventType: 'Holiday',
+      IsAnnualRecurrence: true,
+      RecurrenceRule: '',
+      ImageUrl: '',
+      Active: true
+    }
+  ];
+
   constructor(listTitle: string) {
     this._listTitle = listTitle;
   }
@@ -70,6 +164,8 @@ export class ListProvisioningService {
       // Ensure all required fields exist
       try {
         await this.ensureFields(list);
+        // Seed default items if the list is empty
+        await this.seedDefaultItems(list);
       } catch (fieldError: any) {
         console.error('Error ensuring fields:', fieldError);
         const fieldErrorMessage = fieldError?.message || 'Unknown error';
@@ -95,6 +191,38 @@ export class ListProvisioningService {
         error: errorMessage,
         listExists: false
       };
+    }
+  }
+
+  private async seedDefaultItems(list: any): Promise<void> {
+    try {
+      // Check if the list already has items
+      const existingItems = await list.items.top(1).select('Id')();
+      const hasItems = Array.isArray(existingItems) ? existingItems.length > 0 : (existingItems?.value?.length ?? 0) > 0;
+
+      if (hasItems) {
+        return;
+      }
+
+      for (const ev of this._defaultEvents) {
+        try {
+          await list.items.add({
+            Title: ev.Title,
+            EventDate: ev.EventDate,
+            EventType: ev.EventType,
+            IsAnnualRecurrence: ev.IsAnnualRecurrence,
+            RecurrenceRule: ev.RecurrenceRule,
+            ImageUrl: ev.ImageUrl,
+            Active: ev.Active
+          });
+          // Small delay between item creations to avoid throttling
+          await new Promise(resolve => setTimeout(resolve, 100));
+        } catch (itemError: any) {
+          console.error('Error seeding default item:', ev.Title, itemError);
+        }
+      }
+    } catch (error) {
+      console.error('Error checking or seeding default items:', error);
     }
   }
 
