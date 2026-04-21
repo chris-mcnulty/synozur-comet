@@ -3,7 +3,7 @@
   "solution": {
     "name": "Synozur Holidays and Birthdays",
     "id": "30a6bd4c-0756-4062-9ba1-6c058d75fcbe",
-    "version": "2.1.1.0",
+    "version": "2.2.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
@@ -12,7 +12,7 @@
         "title": "Holidays & Birthdays Web Part",
         "description": "Displays upcoming holidays and birthdays from a SharePoint list",
         "id": "c7e3a1d5-9f42-4b8e-a6d1-2e5f7c8b9a0d",
-        "version": "2.1.1.0",
+        "version": "2.2.0.0",
         "componentIds": [
           "489bb588-756c-4fd3-9533-753ad015e7af"
         ]
@@ -21,7 +21,7 @@
         "title": "Holidays & Birthdays Dashboard Card",
         "description": "Adaptive Card Extension for Viva Connections dashboard showing upcoming holidays or birthdays",
         "id": "d4f2b6e8-3a71-4c9d-b5e2-8f1a9c0d7e3b",
-        "version": "2.1.1.0",
+        "version": "2.2.0.0",
         "componentIds": [
           "a8f5e3c2-7d41-4b9a-8e6f-1c2d3e4f5a6b"
         ]

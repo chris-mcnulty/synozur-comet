@@ -54,8 +54,14 @@ export default class UpcomingEventAdaptiveCardExtension extends BaseAdaptiveCard
     return this._loadData();
   }
 
+  private static readonly HOLIDAY_ICON_URL: string = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect fill='%230078d4' width='32' height='32' rx='4'/%3E%3Cpath d='M10 9v3M16 9v3M22 9v3M8 15h16M8 12h16v14H8z' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='19' r='1.5' fill='white'/%3E%3Ccircle cx='16' cy='19' r='1.5' fill='white'/%3E%3Ccircle cx='20' cy='19' r='1.5' fill='white'/%3E%3Ccircle cx='12' cy='23' r='1.5' fill='white'/%3E%3Ccircle cx='16' cy='23' r='1.5' fill='white'/%3E%3C/svg%3E";
+
+  private static readonly BIRTHDAY_ICON_URL: string = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect fill='%230078d4' width='32' height='32' rx='4'/%3E%3Cpath d='M8 20v6h16v-6M8 20c0-2 2-3 4-3s4 1 4 3 2 3 4 3 4-1 4-3M16 13v4M16 8l1.5 2.5h-3z' stroke='white' stroke-width='1.5' fill='none' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E";
+
   public get iconProperty(): string {
-    return this.properties.displayMode === 'Birthday' ? '🎂' : '🎄';
+    return this.properties.displayMode === 'Birthday'
+      ? UpcomingEventAdaptiveCardExtension.BIRTHDAY_ICON_URL
+      : UpcomingEventAdaptiveCardExtension.HOLIDAY_ICON_URL;
   }
 
   protected loadPropertyPaneResources(): Promise<void> {
